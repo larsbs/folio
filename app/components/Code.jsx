@@ -13,19 +13,19 @@ class Code extends React.Component {
   }
 
   componentDidMount() {
-    const myCodeMirror = CodeMirror(this.codemirror, {
+    const codeMirror = CodeMirror(document.getElementById('codemirror'), {
       mode: 'gfm',
       lineNumbers: true
     });
 
-    myCodeMirror.on('change', () => {
-      this.props.onCodeUpdate(myCodeMirror.getValue());
+    codeMirror.on('change', () => {
+      this.props.onChange(codeMirror.getValue());
     });
   }
 
   render() {
     return (
-      <div id="codemirror" ref={codemirror => this.codemirror = codemirror} />
+      <div className={this.props.className} id="codemirror" />
     );
   }
 

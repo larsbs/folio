@@ -3,17 +3,18 @@ import { connect } from 'react-redux';
 
 import Code from '../components/Code';
 import Preview from '../components/Preview';
-
 import { updateText } from '../actions/code';
+
+import '../../styles/editor.less';
 
 
 class Editor extends React.Component {
 
   render() {
     return (
-      <div>
-        <Code onCodeUpdate={this._dispatchCodeUpdate.bind(this)}/>
-        <Preview code={this.props.code.text} />
+      <div className="editor">
+        <Code className="code" onChange={this._dispatchCodeUpdate.bind(this)}/>
+        <Preview className="preview" code={this.props.code.text} />
       </div>
     );
   }
