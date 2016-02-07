@@ -1,7 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 
-import Code from './components/Code';
+import store from './store';
+
+import Editor from './containers/Editor';
 
 
-ReactDOM.render(<Code />, document.getElementById('root'));
+const render = () => {
+  ReactDOM.render(
+    <Provider store={store}>
+      <Editor />
+    </Provider>,
+    document.getElementById('root')
+  );
+};
+
+
+store.subscribe(render);
+render();

@@ -19,6 +19,7 @@ class Code extends React.Component {
     });
 
     myCodeMirror.on('change', () => {
+      this.props.onCodeUpdate(myCodeMirror.getValue());
     });
   }
 
