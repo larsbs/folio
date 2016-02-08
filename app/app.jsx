@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import store from './store';
 import Editor from './containers/Editor';
 
-import '../styles/app.less';
+import 'less/app';
 
 
 const render = () => {

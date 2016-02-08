@@ -9,7 +9,7 @@ const BrowserWindow = electron.BrowserWindow;
 
 let mainWindow = null;
 const windowOptions = {
-  width: 1200,
+  width: 1600,
   height: 800
 };
 

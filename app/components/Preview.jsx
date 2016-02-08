@@ -2,14 +2,16 @@ import React from 'react';
 import marked from 'marked';
 import Highlight from 'highlight.js';
 
-import 'highlight.js/styles/monokai.css';
+import 'highlight.js/styles/github.css';
 
 
 class Preview extends React.Component {
 
   render() {
     return (
-      <div className={this.props.className} dangerouslySetInnerHTML={this._rawMarkup()} />
+      <div className="preview-container">
+        <div className={this.props.className} dangerouslySetInnerHTML={this._rawMarkup()} />
+      </div>
     );
   }
 

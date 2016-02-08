@@ -4,8 +4,14 @@ const path = require('path');
 module.exports = {
   devtools: 'eval-source-map',
   resolve: {
-    root: [],
-    extensions: ['', '.js', '.jsx']
+    root: [
+    ],
+    modulesDirectories: [
+      'styles',
+      'web_modules',
+      'node_modules'
+    ],
+    extensions: ['', '.js', '.jsx', '.less']
   },
   entry: [
     'webpack-dev-server/client?http://localhost:8080',

@@ -5,7 +5,7 @@ import Code from '../components/Code';
 import Preview from '../components/Preview';
 import { updateText } from '../actions/code';
 
-import '../../styles/editor.less';
+import 'less/containers/editor';
 
 
 class Editor extends React.Component {

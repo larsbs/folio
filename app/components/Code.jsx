@@ -4,18 +4,17 @@ import 'codemirror/mode/gfm/gfm';
 import 'codemirror/mode/javascript/javascript';
 
 import 'codemirror/lib/codemirror.css';
+import 'codemirror/theme/material.css';
+import 'less/components/code.less';
 
 
 class Code extends React.Component {
 
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
     const codeMirror = CodeMirror(document.getElementById('codemirror'), {
       mode: 'gfm',
-      lineNumbers: true
+      lineNumbers: true,
+      theme: 'material'
     });
 
     codeMirror.on('change', () => {
