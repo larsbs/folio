@@ -3,9 +3,10 @@ import CodeMirror from 'codemirror';
 import 'codemirror/mode/gfm/gfm';
 import 'codemirror/mode/javascript/javascript';
 
+import styles from 'less/components/code';
+
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/material.css';
-import 'less/components/code.less';
 
 
 class Code extends React.Component {
@@ -27,7 +28,7 @@ class Code extends React.Component {
   render() {
     return (
       <div className="code-container">
-        <div className="code" id="codemirror" />
+        <div className={styles.codemirror + ' code cm-s-material'} id="codemirror" />
       </div>
     );
   }
