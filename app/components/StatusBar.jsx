@@ -1,18 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import { getNumberOfLines, getNumberOfWords } from '../selectors/code';
+
 import style from 'less/components/status-bar';
 
 
 class StatusBar extends React.Component {
 
   render () {
-    const lines = this.props.codeText.split(/\r\n|\r|\n/).length;
-    const words = this.props.codeText.replace(/[^A-Z\d\s]/gi, '').split(/\s+/).filter(x => !!x).length;
     return (
       <div className={style.statusBar + ' status-bar'}>
         <div className="left-status-bar">
-          <span>Lines: {lines}, Words: {words}</span>
+          <span>Lines: {this.props.numberOfLines}, Words: {this.props.numberOfWords}</span>
         </div>
         <div className="right-status-bar">
         </div>
@@ -25,7 +25,8 @@ class StatusBar extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    codeText: state.code.text
+    numberOfLines: getNumberOfLines(state),
+    numberOfWords: getNumberOfWords(state)
   };
 };
 
