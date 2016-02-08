@@ -14,7 +14,8 @@ class Code extends React.Component {
     const codeMirror = CodeMirror(document.getElementById('codemirror'), {
       mode: 'gfm',
       lineNumbers: true,
-      theme: 'material'
+      theme: 'material',
+      lineWrapping: true
     });
 
     codeMirror.on('change', () => {

@@ -4,6 +4,24 @@
 // Author: Lorenzo Ruiz
 //------------------------
 
-.status-bar {
-  background: red;
+@import '../colors.less';
+@import '../variables.less';
+
+
+:local(.statusBar) {
+  background: @status-bar-bg;
+  color: @status-bar-color;
+  display: flex;
+  align-items: center;
+  font-size: 11px;
+  padding: 0 @app-padding-horizontal;
+
+  .left-status-bar {
+    flex: 1;
+  }
+
+  .right-status-bar {
+    flex: 1;
+    color: red;
+  }
 }

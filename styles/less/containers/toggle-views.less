@@ -1,0 +1,37 @@
+//------------------------
+// TOGGLE VIEWS
+//
+// Author: Lorenzo Ruiz
+//------------------------
+
+@import '../colors';
+
+
+:local(.toggleViews) {
+  display: flex;
+}
+
+:local(.button) {
+  composes: button from '!less!../buttons.less';
+  background: none;
+  font-size: 13px;
+  margin: 0 10px;
+  padding: 6px 10px 5px 10px;
+
+  &:last-child {
+    margin: 0;
+  }
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+}
+
+:local(.active) {
+  composes: button;
+  background: @teal;
+
+  &:hover {
+    background: darken(@teal, 10%);
+  }
+}

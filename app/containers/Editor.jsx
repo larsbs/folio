@@ -11,15 +11,25 @@ import 'less/containers/editor';
 class Editor extends React.Component {
 
   render() {
+    let code;
+    if (this.props.showCode) {
+      code = <Code onChange={this._handleOnChangeCode.bind(this)}/>;
+    }
+
+    let preview;
+    if (this.props.showPreview) {
+      preview = <Preview code={this.props.code.text} />;
+    }
+
     return (
       <div className="editor">
-        <Code onChange={this._dispatchCodeUpdate.bind(this)}/>
-        <Preview code={this.props.code.text} />
+        {code}
+        {preview}
       </div>
     );
   }
 
-  _dispatchCodeUpdate(text) {
+  _handleOnChangeCode(text) {
     this.props.dispatch(updateText(text));
   }
 
@@ -28,7 +38,9 @@ class Editor extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    code: state.code
+    code: state.code,
+    showCode: state.toggleViews.showCode,
+    showPreview: state.toggleViews.showPreview
   };
 };
 
