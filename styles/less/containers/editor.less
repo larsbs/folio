@@ -5,21 +5,24 @@
 //------------------------
 
 .editor {
-  height: 100%;
   display: flex;
 
-  .code {
-    height: 100%;
+  .code-container {
     flex: 1;
-    flex-basis: 0;
+    position: relative;
+
+    .code {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+    }
   }
 
   .preview-container {
     flex: 1;
-    flex-basis: 0;
+    overflow-y: auto;
 
     .preview {
-      height: 100%;
       padding: 15px 20px;
     }
   }

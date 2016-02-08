@@ -24,7 +24,9 @@ class Code extends React.Component {
 
   render() {
     return (
-      <div className={this.props.className} id="codemirror" />
+      <div className="code-container">
+        <div className="code" id="codemirror" />
+      </div>
     );
   }
 

@@ -13,8 +13,8 @@ class Editor extends React.Component {
   render() {
     return (
       <div className="editor">
-        <Code className="code" onChange={this._dispatchCodeUpdate.bind(this)}/>
-        <Preview className="preview" code={this.props.code.text} />
+        <Code onChange={this._dispatchCodeUpdate.bind(this)}/>
+        <Preview code={this.props.code.text} />
       </div>
     );
   }

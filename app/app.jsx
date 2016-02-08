@@ -3,15 +3,14 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
 import store from './store';
-import Editor from './containers/Editor';
+import App from './containers/App';
 
-import 'less/app';
 
 
 const render = () => {
   ReactDOM.render(
     <Provider store={store}>
-      <Editor />
+      <App />
     </Provider>,
     document.getElementById('root')
   );

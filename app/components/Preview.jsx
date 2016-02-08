@@ -10,7 +10,7 @@ class Preview extends React.Component {
   render() {
     return (
       <div className="preview-container">
-        <div className={this.props.className} dangerouslySetInnerHTML={this._rawMarkup()} />
+        <div className="preview" dangerouslySetInnerHTML={this._rawMarkup()} />
       </div>
     );
   }
