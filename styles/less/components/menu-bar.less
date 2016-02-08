@@ -9,7 +9,18 @@
   font-size: 15px;
 
   i {
-    margin: 0 5px;
+    width: 40px;
+    padding: 8px;
     cursor: pointer;
+    border-radius: 2px;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    &.separator {
+      cursor: default !important;
+      background: none !important;
+    }
   }
 }
