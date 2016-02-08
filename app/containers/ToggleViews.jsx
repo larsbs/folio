@@ -6,29 +6,17 @@ import { toggleCode, togglePreview } from '../actions/toggle-views';
 import styles from 'less/containers/toggle-views';
 
 
-class ToggleViews extends React.Component {
+const ToggleViews = ({showCode, showPreview, onClickCode, onClickPreview}) => {
+  const codeClass = showCode ? styles.active : styles.button;
+  const previewClass = showPreview ? styles.active : styles.button;
 
-  render() {
-    const codeClass = this.props.showCode ? styles.active : styles.button;
-    const previewClass = this.props.showPreview ? styles.active : styles.button;
-    return (
-      <div className={styles.toggleViews + ' toggle-views'}>
-        <button className={codeClass} onClick={this._handleOnClickCode.bind(this)}>Code</button>
-        <button className={previewClass} onClick={this._handleOnClickPreview.bind(this)}>Preview</button>
-      </div>
-    );
-  }
-
-  _handleOnClickCode() {
-    this.props.dispatch(toggleCode());
-  }
-
-  _handleOnClickPreview() {
-    this.props.dispatch(togglePreview());
-  }
-
-}
-
+  return (
+    <div className={styles.toggleViews + ' toggle-views'}>
+      <button className={codeClass} onClick={onClickCode}>Code</button>
+      <button className={previewClass} onClick={onClickPreview}>Preview</button>
+    </div>
+  );
+};
 
 const mapStateToProps = (state) => {
   return {
@@ -37,5 +25,16 @@ const mapStateToProps = (state) => {
   };
 };
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onClickCode: () => {
+      dispatch(toggleCode());
+    },
+    onClickPreview: () => {
+      dispatch(togglePreview());
+    }
+  };
+};
 
-export default connect(mapStateToProps)(ToggleViews);
+
+export default connect(mapStateToProps, mapDispatchToProps)(ToggleViews);

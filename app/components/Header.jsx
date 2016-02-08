@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Toggler from './Toggler';
-import MenuBar from './MenuBar';
+import MenuBar from '../containers/MenuBar';
 import ToggleViews from '../containers/ToggleViews';
 
 import 'less/components/header.less';
