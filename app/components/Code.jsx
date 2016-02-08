@@ -15,7 +15,8 @@ class Code extends React.Component {
       mode: 'gfm',
       lineNumbers: true,
       theme: 'material',
-      lineWrapping: true
+      lineWrapping: true,
+      value: this.props.value
     });
 
     codeMirror.on('change', () => {

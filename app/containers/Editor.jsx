@@ -13,7 +13,7 @@ class Editor extends React.Component {
   render() {
     let code;
     if (this.props.showCode) {
-      code = <Code onChange={this._handleOnChangeCode.bind(this)}/>;
+      code = <Code onChange={this._handleOnChangeCode.bind(this)} value={this.props.code.text}/>;
     }
 
     let preview;

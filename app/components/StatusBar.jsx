@@ -7,7 +7,6 @@ import style from 'less/components/status-bar';
 class StatusBar extends React.Component {
 
   render () {
-    console.log();
     const lines = this.props.codeText.split(/\r\n|\r|\n/).length;
     const words = this.props.codeText.replace(/[^A-Z\d\s]/gi, '').split(/\s+/).filter(x => !!x).length;
     return (
