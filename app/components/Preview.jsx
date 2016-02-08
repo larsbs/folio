@@ -9,22 +9,14 @@ class Preview extends React.Component {
 
   render() {
     return (
-      <div>
-        <h1>Preview</h1>
-        <div dangerouslySetInnerHTML={this._rawMarkup()} />
-        <pre>{JSON.stringify(this.props.code, null, 2)}</pre>
-      </div>
+      <div className={this.props.className} dangerouslySetInnerHTML={this._rawMarkup()} />
     );
   }
 
   _rawMarkup() {
     let rawMarkup = marked(this.props.code, {
       sanitize: true,
-      highlight: (code, lang) => (`
-        <code class="hljs">
-          ${Highlight.highlight(lang, code).value}
-        </code>
-      `)
+      highlight: code => `<code class="hljs">${Highlight.highlightAuto(code).value}</code>`
     });
     return { __html: rawMarkup };
   }
