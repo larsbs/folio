@@ -7,6 +7,7 @@ module.exports = {
   setAsBold(currentValue, cursorPosition, somethingSelected, selections) {
     codeMirror.setValue(currentValue);
     codeMirror.setCursor(cursorPosition);
+
     if ( ! somethingSelected) {
       codeMirror.replaceSelection('****');
       return {
@@ -17,9 +18,12 @@ module.exports = {
         }
       };
     }
-    const range = codeMirror.findWordAt(cursorPosition);
-    const word = codeMirror.getRange(range.anchor, range.head);
-    codeMirror.replaceRange(`**${word}**`, range.anchor, range.head);
-    return codeMirror.getValue();
+
+    codeMirror.setSelections(selections);
+    codeMirror.replaceSelections(codeMirror.getSelections().map(s => `**${s}**`));
+    return {
+      text: codeMirror.getValue(),
+      cursorPosition: cursorPosition
+    };
   }
 };
