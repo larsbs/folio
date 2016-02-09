@@ -25,6 +25,7 @@ class Code extends React.Component {
     });
 
     this.codeMirror.on('cursorActivity', () => {
+      console.log('ON CURSOR ACTIVITY');
       if (this.codeMirror.somethingSelected()) {
         this.props.onCursorActivity(this.codeMirror.getCursor(), this.codeMirror.listSelections());
       }

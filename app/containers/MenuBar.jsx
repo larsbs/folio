@@ -6,7 +6,7 @@ import {
   setAsItalic,
   createLink,
   createImageLink,
-  //createQuote,
+  createQuote,
   //createUlList,
   //createOlList,
   //createCodeBlock,
@@ -21,6 +21,7 @@ const MenuBar = ({
   onClickItalic,
   onClickLink,
   onClickPhoto,
+  onClickIndent,
 }) => (
   <div className={styles.menuBar + ' menu-bar'}>
     <i className="fa fa-fw fa-bold" onClick={onClickBold} />
@@ -29,7 +30,7 @@ const MenuBar = ({
     <i className="fa fa-fw fa-link" onClick={onClickLink} />
     <i className="fa fa-fw fa-photo" onClick={onClickPhoto} />
     <i className="fa fa-fw separator" />
-    <i className="fa fa-fw fa-indent" />
+    <i className="fa fa-fw fa-indent" onClick={onClickIndent} />
     <i className="fa fa-fw fa-list-ul" />
     <i className="fa fa-fw fa-list-ol" />
     <i className="fa fa-fw fa-code" />
@@ -57,6 +58,9 @@ const mapDispatchToProps = dispatch => {
     },
     onClickPhoto: () => {
       dispatch(createImageLink());
+    },
+    onClickIndent: () => {
+      dispatch(createQuote());
     }
   };
 };

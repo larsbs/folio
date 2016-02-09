@@ -19,6 +19,16 @@ function insertText(codeMirror, text, nextCursorPosition) {
   };
 }
 
+function insertNewLine(codeMirror, text, nextCursorPosition) {
+  const cursor = codeMirror.getCursor();
+  const newLineCursor = Object.assign({}, cursor, {
+    line: cursor.line + 1,
+    ch: 0
+  });
+  codeMirror.setCursor(newLineCursor);
+  return insertText(codeMirror, `\n${text}`, nextCursorPosition);
+}
+
 function setAs(currentValue, cursorPosition, somethingSelected, selections, as) {
   const codeMirror = initCodeMirror(currentValue, cursorPosition, selections);
 
@@ -69,5 +79,26 @@ module.exports = {
   },
   createImageLink({ text, cursorPosition, somethingSelected, selections }) {
     return createLink(text, cursorPosition, somethingSelected, selections, 'image');
+  },
+  createQuote({ text, cursorPosition, somethingSelected, selections }) {
+    const codeMirror = initCodeMirror(text, cursorPosition, selections);
+
+    if ( ! somethingSelected) {
+      return insertNewLine(codeMirror, '> ');
+    }
+
+    codeMirror.replaceSelections(
+      codeMirror.getSelections()
+        .map((s, i, a) => {
+          if (i === a.length - 1) {
+            return `\n> ${s}`;
+          }
+          return `\n> ${s}\n\n`;
+        })
+    );
+    return {
+      text: codeMirror.getValue(),
+      cursorPosition: cursorPosition
+    };
   }
 };

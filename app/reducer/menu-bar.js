@@ -22,7 +22,9 @@ export default function menuBar(state = {}, action) {
           ...CodeUtils.createImageLink(state)
         });
       case MenuBarActions.CREATE_QUOTE:
-        return state;
+        return Object.assign({}, state, {
+          ...CodeUtils.createQuote(state)
+        });
       case MenuBarActions.CREATE_UL_LIST:
         return state;
       case MenuBarActions.CREATE_OL_LIST:
