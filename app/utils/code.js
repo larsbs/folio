@@ -157,5 +157,19 @@ module.exports = {
     };
   },
   createHeader({ text, cursorPosition, somethingSelected, selections }) {
+    const codeMirror = initCodeMirror(text, cursorPosition, selections);
+
+    if ( ! somethingSelected) {
+      return insertText(codeMirror, '# ');
+    }
+
+    codeMirror.replaceSelections(
+      codeMirror.getSelections()
+        .map(s => `# ${s}\n`)
+    );
+    return {
+      text: codeMirror.getValue(),
+      cursorPosition: cursorPosition
+    };
   },
 };
