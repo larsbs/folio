@@ -22,10 +22,11 @@ app.on('window-all-closed', () => {
 
 
 app.on('ready', () => {
+
+  //BrowserWindow.addDevToolsExtension('node_modules/remotedev-extension/dist');
+
   mainWindow = new BrowserWindow(windowOptions);
-
   mainWindow.loadURL(`file://${__dirname}/public/index.html`);
-
   mainWindow.on('closed', () => {
     mainWindow = null;
   });

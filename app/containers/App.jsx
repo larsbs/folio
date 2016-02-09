@@ -1,25 +1,29 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import Header from '../components/Header';
 import Editor from './Editor';
 import StatusBar from '../components/StatusBar';
 
+import { getNumberOfLines, getNumberOfWords } from '../selectors/code';
+
 import 'less/app';
 
 
-class App extends React.Component {
+const App = ({ lines, words }) => (
+  <div className="app-container">
+    <Header />
+    <Editor />
+    <StatusBar lines={lines} words={words} />
+  </div>
+);
 
-  render() {
-    return (
-      <div className="app-container">
-        <Header />
-        <Editor />
-        <StatusBar />
-      </div>
-    );
-  }
-
-}
+const mapStateToProps = (state) => {
+  return {
+    lines: getNumberOfLines(state),
+    words: getNumberOfWords(state)
+  };
+};
 
 
-export default App;
+export default connect(mapStateToProps)(App);

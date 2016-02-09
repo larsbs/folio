@@ -6,7 +6,7 @@ import { toggleCode, togglePreview } from '../actions/toggle-views';
 import styles from 'less/containers/toggle-views';
 
 
-const ToggleViews = ({showCode, showPreview, onClickCode, onClickPreview}) => {
+const ToggleViews = ({ showCode, showPreview, onClickCode, onClickPreview }) => {
   const codeClass = showCode ? styles.active : styles.button;
   const previewClass = showPreview ? styles.active : styles.button;
 

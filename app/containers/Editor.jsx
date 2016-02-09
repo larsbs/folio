@@ -5,10 +5,10 @@ import Code from '../components/Code';
 import Preview from '../components/Preview';
 import { updateText } from '../actions/code';
 
-import 'less/containers/editor';
+import styles from 'less/containers/editor';
 
 
-const Editor = ({showCode, showPreview, text, onChangeCode}) => {
+const Editor = ({ showCode, showPreview, text, onChangeCode }) => {
   let code;
   if (showCode) {
     code = <Code onChange={onChangeCode} value={text}/>;
@@ -20,7 +20,7 @@ const Editor = ({showCode, showPreview, text, onChangeCode}) => {
   }
 
   return (
-    <div className="editor">
+    <div className={styles.editor + ' editor'}>
       {code}
       {preview}
     </div>

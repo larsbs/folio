@@ -12,7 +12,7 @@ import 'codemirror/theme/material.css';
 class Code extends React.Component {
 
   componentDidMount() {
-    const codeMirror = CodeMirror(document.getElementById('codemirror'), {
+    this.codeMirror = CodeMirror(document.getElementById('codemirror'), {
       mode: 'gfm',
       lineNumbers: true,
       theme: 'material',
@@ -20,9 +20,17 @@ class Code extends React.Component {
       value: this.props.value
     });
 
-    codeMirror.on('change', () => {
-      this.props.onChange(codeMirror.getValue());
+    this.codeMirror.on('change', () => {
+      this.props.onChange(this.codeMirror.getValue());
     });
+  }
+
+  componentDidUpdate() {
+    if (this.props.value !== this.codeMirror.getValue()) {
+      this.codeMirror.setValue(this.props.value);
+      this.codeMirror.focus();
+      this.codeMirror.setCursor(0, 1);
+    }
   }
 
   render() {
