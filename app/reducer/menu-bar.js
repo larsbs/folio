@@ -3,7 +3,6 @@ import CodeUtils from '../utils/code';
 
 
 export default function menuBar(state = {}, action) {
-  console.log(state);
   switch (action.type) {
       case MenuBarActions.SET_AS_BOLD:
         return Object.assign({}, state, {
@@ -26,13 +25,21 @@ export default function menuBar(state = {}, action) {
           ...CodeUtils.createQuote(state)
         });
       case MenuBarActions.CREATE_UL_LIST:
-        return state;
+        return Object.assign({}, state, {
+          ...CodeUtils.createUlList(state)
+        });
       case MenuBarActions.CREATE_OL_LIST:
-        return state;
+        return Object.assign({}, state, {
+          ...CodeUtils.createOlList(state)
+        });
       case MenuBarActions.CREATE_CODE_BLOCK:
-        return state;
+        return Object.assign({}, state, {
+          ...CodeUtils.createCodeBlock(state)
+        });
       case MenuBarActions.CREATE_HEADER:
-        return state;
+        return Object.assign({}, state, {
+          ...CodeUtils.createHeader(state)
+        });
       default:
         return state;
   }

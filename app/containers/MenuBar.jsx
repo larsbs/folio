@@ -7,10 +7,10 @@ import {
   createLink,
   createImageLink,
   createQuote,
-  //createUlList,
-  //createOlList,
-  //createCodeBlock,
-  //createHeader
+  createUlList,
+  createOlList,
+  createCodeBlock,
+  createHeader,
 } from '../actions/menu-bar';
 
 import styles from 'less/containers/menu-bar';
@@ -22,6 +22,10 @@ const MenuBar = ({
   onClickLink,
   onClickPhoto,
   onClickIndent,
+  onClickListUl,
+  onClickListOl,
+  onClickCode,
+  onClickHeader,
 }) => (
   <div className={styles.menuBar + ' menu-bar'}>
     <i className="fa fa-fw fa-bold" onClick={onClickBold} />
@@ -31,10 +35,10 @@ const MenuBar = ({
     <i className="fa fa-fw fa-photo" onClick={onClickPhoto} />
     <i className="fa fa-fw separator" />
     <i className="fa fa-fw fa-indent" onClick={onClickIndent} />
-    <i className="fa fa-fw fa-list-ul" />
-    <i className="fa fa-fw fa-list-ol" />
-    <i className="fa fa-fw fa-code" />
-    <i className="fa fa-fw fa-header" />
+    <i className="fa fa-fw fa-list-ul" onClick={onClickListUl} />
+    <i className="fa fa-fw fa-list-ol" onClick={onClickListOl} />
+    <i className="fa fa-fw fa-code" onClick={onClickCode} />
+    <i className="fa fa-fw fa-header" onClick={onClickHeader} />
   </div>
 );
 
@@ -61,7 +65,19 @@ const mapDispatchToProps = dispatch => {
     },
     onClickIndent: () => {
       dispatch(createQuote());
-    }
+    },
+    onClickListUl: () => {
+      dispatch(createUlList());
+    },
+    onClickListOl: () => {
+      dispatch(createOlList());
+    },
+    onClickCode: () => {
+      dispatch(createCodeBlock());
+    },
+    onClickHeader: () => {
+      dispatch(createHeader());
+    },
   };
 };
 

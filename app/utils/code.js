@@ -11,6 +11,7 @@ function initCodeMirror(text, cursorPosition, selections) {
   return codeMirror;
 }
 
+
 function insertText(codeMirror, text, nextCursorPosition) {
   codeMirror.replaceSelection(text);
   return {
@@ -18,6 +19,7 @@ function insertText(codeMirror, text, nextCursorPosition) {
     cursorPosition: nextCursorPosition ? nextCursorPosition : codeMirror.getCursor()
   };
 }
+
 
 function insertNewLine(codeMirror, text, nextCursorPosition) {
   const cursor = codeMirror.getCursor();
@@ -28,6 +30,7 @@ function insertNewLine(codeMirror, text, nextCursorPosition) {
   codeMirror.setCursor(newLineCursor);
   return insertText(codeMirror, `\n${text}`, nextCursorPosition);
 }
+
 
 function setAs(currentValue, cursorPosition, somethingSelected, selections, as) {
   const codeMirror = initCodeMirror(currentValue, cursorPosition, selections);
@@ -48,6 +51,7 @@ function setAs(currentValue, cursorPosition, somethingSelected, selections, as) 
   };
 }
 
+
 function createLink(text, cursorPosition, somethingSelected, selections, type) {
   const codeMirror = initCodeMirror(text, cursorPosition, selections);
 
@@ -67,6 +71,20 @@ function createLink(text, cursorPosition, somethingSelected, selections, type) {
   };
 }
 
+
+function createList(text, cursorPosition, somethingSelected, selections, type) {
+  const codeMirror = initCodeMirror(text, cursorPosition, selections);
+
+  if ( ! somethingSelected) {
+    const { line, ch } = codeMirror.getCursor();
+    if (line === 0 && ch === 0) {
+      return insertText(codeMirror, type === 'ul' ? '  * ' : '  1. ');
+    }
+    return insertNewLine(codeMirror, type === 'ul' ? '  * ' : '  1. ');
+  }
+}
+
+
 module.exports = {
   setAsBold({ text, cursorPosition, somethingSelected, selections }) {
     return setAs(text, cursorPosition, somethingSelected, selections, 'bold');
@@ -84,6 +102,10 @@ module.exports = {
     const codeMirror = initCodeMirror(text, cursorPosition, selections);
 
     if ( ! somethingSelected) {
+      const { line, ch } = codeMirror.getCursor();
+      if (line === 0 && ch === 0) {
+        return insertText(codeMirror, '> ');
+      }
       return insertNewLine(codeMirror, '> ');
     }
 
@@ -100,5 +122,15 @@ module.exports = {
       text: codeMirror.getValue(),
       cursorPosition: cursorPosition
     };
-  }
+  },
+  createUlList({ text, cursorPosition, somethingSelected, selections }) {
+    return createList(text, cursorPosition, somethingSelected, selections, 'ul');
+  },
+  createOlList({ text, cursorPosition, somethingSelected, selections }) {
+    return createList(text, cursorPosition, somethingSelected, selections, 'ol');
+  },
+  createCodeBlock({ text, cursorPosition, somethingSelected, selections }) {
+  },
+  createHeader({ text, cursorPosition, somethingSelected, selections }) {
+  },
 };
