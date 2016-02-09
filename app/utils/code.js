@@ -1,28 +1,36 @@
 import CodeMirror from 'codemirror';
 
 
-const codeMirror = CodeMirror();
+function initCodeMirror(text, cursorPosition, selections) {
+  const codeMirror = CodeMirror();
+  codeMirror.setValue(text);
+  codeMirror.setCursor(cursorPosition);
+  if (selections && selections.length > 0) {
+    codeMirror.setSelections(selections);
+  }
+  return codeMirror;
+}
 
+function insertText(codeMirror, text, nextCursorPosition) {
+  codeMirror.replaceSelection(text);
+  return {
+    text: codeMirror.getValue(),
+    cursorPosition: nextCursorPosition ? nextCursorPosition : codeMirror.getCursor()
+  };
+}
 
 function setAs(currentValue, cursorPosition, somethingSelected, selections, as) {
-  codeMirror.setValue(currentValue);
-  codeMirror.setCursor(cursorPosition);
+  const codeMirror = initCodeMirror(currentValue, cursorPosition, selections);
 
   if ( ! somethingSelected) {
-    codeMirror.replaceSelection(as === 'bold' ? '****' : '**');
-    return {
-      text: codeMirror.getValue(),
-      cursorPosition: {
-        line: cursorPosition.line,
-        ch: as === 'bold' ? cursorPosition.ch + 2 : cursorPosition.ch + 1
-      }
-    };
+    return insertText(codeMirror, as === 'bold' ? '****' : '**', Object.assign({}, cursorPosition, {
+      ch: as === 'bold' ? cursorPosition.ch + 2 : cursorPosition.ch + 1
+    }));
   }
 
-  codeMirror.setSelections(selections);
   codeMirror.replaceSelections(
     codeMirror.getSelections()
-    .map(s => as === 'bold' ? `**${s}**` : `*${s}*`)
+      .map(s => as === 'bold' ? `**${s}**` : `*${s}*`)
   );
   return {
     text: codeMirror.getValue(),
@@ -37,4 +45,22 @@ module.exports = {
   setAsItalic({ text, cursorPosition, somethingSelected, selections }) {
     return setAs(text, cursorPosition, somethingSelected, selections, 'italic');
   },
+  createLink({ text, cursorPosition, somethingSelected, selections }) {
+    const codeMirror = initCodeMirror(text, cursorPosition, selections);
+
+    if ( ! somethingSelected) {
+      return insertText(codeMirror, '[]()', Object.assign({}, cursorPosition, {
+        ch: cursorPosition.ch + 1
+      }));
+    }
+
+    codeMirror.replaceSelections(
+      codeMirror.getSelections()
+        .map(s => `[${s}]()`)
+    );
+    return {
+      text: codeMirror.getValue(),
+      cursorPosition: cursorPosition
+    }
+  }
 };

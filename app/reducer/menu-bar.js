@@ -15,7 +15,7 @@ export default function menuBar(state = {}, action) {
         });
       case MenuBarActions.CREATE_LINK:
         return Object.assign({}, state, {
-          text: state.text
+          ...CodeUtils.createLink(state)
         });
       case MenuBarActions.CREATE_IMAGE_LINK:
         return state;
