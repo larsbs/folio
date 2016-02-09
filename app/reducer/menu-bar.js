@@ -7,15 +7,12 @@ export default function menuBar(state = {}, action) {
   switch (action.type) {
       case MenuBarActions.SET_AS_BOLD:
         return Object.assign({}, state, {
-          ...CodeUtils.setAsBold(
-            state.text,
-            state.cursorPosition,
-            state.somethingSelected,
-            state.selections
-          )
+          ...CodeUtils.setAsBold(state)
         });
       case MenuBarActions.SET_AS_ITALIC:
-        return state;
+        return Object.assign({}, state, {
+          ...CodeUtils.setAsItalic(state)
+        });
       case MenuBarActions.CREATE_LINK:
         return Object.assign({}, state, {
           text: state.text
