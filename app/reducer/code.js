@@ -9,8 +9,8 @@ const initialState = {
     line: 0,
     ch: 0
   },
-  selection: {
-  }
+  somethingSelected: false,
+  selections: []
 };
 
 
@@ -37,6 +37,11 @@ export default function code(state = initialState, action) {
       case CodeActions.UPDATE_CURSOR_POSITION:
         return Object.assign({}, state, {
           cursorPosition: action.payload.position
+        });
+      case CodeActions.UPDATE_SELECTIONS:
+        return Object.assign({}, state, {
+          selections: action.payload.selections ? action.payload.selections : [],
+          somethingSelected: !!action.payload.selections
         });
       default:
         return state;

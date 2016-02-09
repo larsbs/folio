@@ -25,7 +25,12 @@ class Code extends React.Component {
     });
 
     this.codeMirror.on('cursorActivity', () => {
-      this.props.onCursorActivity(this.codeMirror.getCursor());
+      if (this.codeMirror.somethingSelected()) {
+        this.props.onCursorActivity(this.codeMirror.getCursor(), this.codeMirror.listSelections());
+      }
+      else {
+        this.props.onCursorActivity(this.codeMirror.getCursor(), null);
+      }
     });
   }
 
@@ -33,7 +38,7 @@ class Code extends React.Component {
     if (this.props.value !== this.codeMirror.getValue()) {
       this.codeMirror.setValue(this.props.value);
       this.codeMirror.focus();
-      this.codeMirror.setCursor(0, 1);
+      this.codeMirror.setCursor(this.props.cursorPosition);
     }
   }
 

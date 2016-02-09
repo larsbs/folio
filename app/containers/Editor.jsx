@@ -6,6 +6,7 @@ import Preview from '../components/Preview';
 import {
   updateText,
   updateCursorPosition,
+  updateSelections
 } from '../actions/code';
 
 import styles from 'less/containers/editor';
@@ -15,16 +16,19 @@ const Editor = ({
   showCode,
   showPreview,
   text,
+  cursorPosition,
   onChangeCode,
   onCursorActivity,
 }) => {
   let code;
   if (showCode) {
-    code = <Code
-      onChange={onChangeCode}
-      onCursorActivity={onCursorActivity}
-      value={text}
-    />;
+    code = (
+      <Code
+        onChange={onChangeCode}
+        onCursorActivity={onCursorActivity}
+        cursorPosition={cursorPosition}
+        value={text} />
+    );
   }
 
   let preview;
@@ -44,6 +48,7 @@ const Editor = ({
 const mapStateToProps = (state) => {
   return {
     text: state.code.text,
+    cursorPosition: state.code.cursorPosition,
     showCode: state.toggleViews.showCode,
     showPreview: state.toggleViews.showPreview
   };
@@ -54,8 +59,9 @@ const mapDispatchToProps = (dispatch) => {
     onChangeCode: text => {
       dispatch(updateText(text));
     },
-    onCursorActivity: position => {
+    onCursorActivity: (position, selections) => {
       dispatch(updateCursorPosition(position));
+      dispatch(updateSelections(selections));
     }
   };
 };

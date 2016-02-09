@@ -9,6 +9,7 @@ export function updateText(text) {
   };
 }
 
+
 export const UPDATE_CURSOR_POSITION = Symbol.for('UPDATE_CURSOR_POSITION');
 
 export function updateCursorPosition(position) {
@@ -16,6 +17,18 @@ export function updateCursorPosition(position) {
     type: UPDATE_CURSOR_POSITION,
     payload: {
       position
+    }
+  };
+}
+
+
+export const UPDATE_SELECTIONS = Symbol.for('UPDATE_SELECTIONS');
+
+export function updateSelections(selections) {
+  return {
+    type: UPDATE_SELECTIONS,
+    payload: {
+      selections
     }
   };
 }
