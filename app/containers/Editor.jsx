@@ -3,15 +3,28 @@ import { connect } from 'react-redux';
 
 import Code from '../components/Code';
 import Preview from '../components/Preview';
-import { updateText } from '../actions/code';
+import {
+  updateText,
+  updateCursorPosition,
+} from '../actions/code';
 
 import styles from 'less/containers/editor';
 
 
-const Editor = ({ showCode, showPreview, text, onChangeCode }) => {
+const Editor = ({
+  showCode,
+  showPreview,
+  text,
+  onChangeCode,
+  onCursorActivity,
+}) => {
   let code;
   if (showCode) {
-    code = <Code onChange={onChangeCode} value={text}/>;
+    code = <Code
+      onChange={onChangeCode}
+      onCursorActivity={onCursorActivity}
+      value={text}
+    />;
   }
 
   let preview;
@@ -40,6 +53,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onChangeCode: text => {
       dispatch(updateText(text));
+    },
+    onCursorActivity: position => {
+      dispatch(updateCursorPosition(position));
     }
   };
 };

@@ -23,6 +23,10 @@ class Code extends React.Component {
     this.codeMirror.on('change', () => {
       this.props.onChange(this.codeMirror.getValue());
     });
+
+    this.codeMirror.on('cursorActivity', () => {
+      this.props.onCursorActivity(this.codeMirror.getCursor());
+    });
   }
 
   componentDidUpdate() {

@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import {
-  //setAsBold,
-  //setAsItalic,
+  setAsBold,
+  setAsItalic,
   createLink,
   //createImageLink,
   //createQuote,
@@ -16,10 +16,14 @@ import {
 import styles from 'less/containers/menu-bar';
 
 
-const MenuBar = ({ onClickLink }) => (
+const MenuBar = ({
+  onClickBold,
+  onClickItalic,
+  onClickLink,
+}) => (
   <div className={styles.menuBar + ' menu-bar'}>
-    <i className="fa fa-fw fa-bold" />
-    <i className="fa fa-fw fa-italic" />
+    <i className="fa fa-fw fa-bold" onClick={onClickBold} />
+    <i className="fa fa-fw fa-italic" onClick={onClickItalic} />
     <i className="fa fa-fw separator" />
     <i className="fa fa-fw fa-link" onClick={onClickLink} />
     <i className="fa fa-fw fa-photo" />
@@ -41,6 +45,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    onClickBold: () => {
+      dispatch(setAsBold());
+    },
+    onClickItalic: () => {
+      dispatch(setAsItalic());
+    },
     onClickLink: () => {
       dispatch(createLink());
     }

@@ -8,3 +8,14 @@ export function updateText(text) {
     }
   };
 }
+
+export const UPDATE_CURSOR_POSITION = Symbol.for('UPDATE_CURSOR_POSITION');
+
+export function updateCursorPosition(position) {
+  return {
+    type: UPDATE_CURSOR_POSITION,
+    payload: {
+      position
+    }
+  };
+}

@@ -4,7 +4,13 @@ import menuBar from './menu-bar';
 
 
 const initialState = {
-  text: ''
+  text: '',
+  cursorPosition: {
+    line: 0,
+    ch: 0
+  },
+  selection: {
+  }
 };
 
 
@@ -27,6 +33,10 @@ export default function code(state = initialState, action) {
       case CodeActions.UPDATE_TEXT:
         return Object.assign({}, state, {
           text: action.payload.text
+        });
+      case CodeActions.UPDATE_CURSOR_POSITION:
+        return Object.assign({}, state, {
+          cursorPosition: action.payload.position
         });
       default:
         return state;
