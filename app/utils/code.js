@@ -38,6 +38,25 @@ function setAs(currentValue, cursorPosition, somethingSelected, selections, as) 
   };
 }
 
+function createLink(text, cursorPosition, somethingSelected, selections, type) {
+  const codeMirror = initCodeMirror(text, cursorPosition, selections);
+
+  if ( ! somethingSelected) {
+    return insertText(codeMirror, type === 'image' ? '![]()' : '[]()', Object.assign({}, cursorPosition, {
+      ch: type === 'image' ? cursorPosition.ch + 2 : cursorPosition.ch + 1
+    }));
+  }
+
+  codeMirror.replaceSelections(
+    codeMirror.getSelections()
+      .map(s => type === 'image' ? `![${s}]()` : `[${s}]()`)
+  );
+  return {
+    text: codeMirror.getValue(),
+    cursorPosition: cursorPosition
+  };
+}
+
 module.exports = {
   setAsBold({ text, cursorPosition, somethingSelected, selections }) {
     return setAs(text, cursorPosition, somethingSelected, selections, 'bold');
@@ -46,21 +65,9 @@ module.exports = {
     return setAs(text, cursorPosition, somethingSelected, selections, 'italic');
   },
   createLink({ text, cursorPosition, somethingSelected, selections }) {
-    const codeMirror = initCodeMirror(text, cursorPosition, selections);
-
-    if ( ! somethingSelected) {
-      return insertText(codeMirror, '[]()', Object.assign({}, cursorPosition, {
-        ch: cursorPosition.ch + 1
-      }));
-    }
-
-    codeMirror.replaceSelections(
-      codeMirror.getSelections()
-        .map(s => `[${s}]()`)
-    );
-    return {
-      text: codeMirror.getValue(),
-      cursorPosition: cursorPosition
-    }
+    return createLink(text, cursorPosition, somethingSelected, selections, 'normal');
+  },
+  createImageLink({ text, cursorPosition, somethingSelected, selections }) {
+    return createLink(text, cursorPosition, somethingSelected, selections, 'image');
   }
 };
