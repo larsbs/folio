@@ -8,41 +8,41 @@ import { updateText } from '../actions/code';
 import 'less/containers/editor';
 
 
-class Editor extends React.Component {
-
-  render() {
-    let code;
-    if (this.props.showCode) {
-      code = <Code onChange={this._handleOnChangeCode.bind(this)} value={this.props.code.text}/>;
-    }
-
-    let preview;
-    if (this.props.showPreview) {
-      preview = <Preview code={this.props.code.text} />;
-    }
-
-    return (
-      <div className="editor">
-        {code}
-        {preview}
-      </div>
-    );
+const Editor = ({showCode, showPreview, text, onChangeCode}) => {
+  let code;
+  if (showCode) {
+    code = <Code onChange={onChangeCode} value={text}/>;
   }
 
-  _handleOnChangeCode(text) {
-    this.props.dispatch(updateText(text));
+  let preview;
+  if (showPreview) {
+    preview = <Preview code={text} />;
   }
 
-}
+  return (
+    <div className="editor">
+      {code}
+      {preview}
+    </div>
+  );
+};
 
 
 const mapStateToProps = (state) => {
   return {
-    code: state.code,
+    text: state.code.text,
     showCode: state.toggleViews.showCode,
     showPreview: state.toggleViews.showPreview
   };
 };
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onChangeCode: text => {
+      dispatch(updateText(text));
+    }
+  };
+};
 
-export default connect(mapStateToProps)(Editor);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Editor);
