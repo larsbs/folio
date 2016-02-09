@@ -14,6 +14,8 @@ function initCodeMirror(text, cursorPosition, selections) {
 
 function insertText(codeMirror, text, nextCursorPosition) {
   codeMirror.replaceSelection(text);
+  console.log(codeMirror.getCursor());
+  console.log(nextCursorPosition);
   return {
     text: codeMirror.getValue(),
     cursorPosition: nextCursorPosition ? nextCursorPosition : codeMirror.getCursor()
@@ -130,6 +132,29 @@ module.exports = {
     return createList(text, cursorPosition, somethingSelected, selections, 'ol');
   },
   createCodeBlock({ text, cursorPosition, somethingSelected, selections }) {
+    const codeMirror = initCodeMirror(text, cursorPosition, selections);
+
+    if ( ! somethingSelected) {
+      const { line, ch } = codeMirror.getCursor();
+      if (line === 0 && ch === 0) {
+        return insertText(codeMirror, '```\n```', Object.assign({}, cursorPosition, {
+          ch: ch + 3
+        }));
+      }
+      return insertNewLine(codeMirror, '```\n```', Object.assign({}, cursorPosition, {
+        line: line + 1,
+        ch: ch + 3
+      }));
+    }
+
+    codeMirror.replaceSelections(
+      codeMirror.getSelections()
+        .map(s => `\`${s}\``)
+    );
+    return {
+      text: codeMirror.getValue(),
+      cursorPosition: cursorPosition
+    };
   },
   createHeader({ text, cursorPosition, somethingSelected, selections }) {
   },
