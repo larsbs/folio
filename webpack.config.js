@@ -23,6 +23,10 @@ module.exports = {
     publicPath: 'http://localhost:8080/dist/',
     filename: 'bundle.js'
   },
+  devServer: {
+    host: 'localhost',
+    port: '8080'
+  },
   module: {
     preLoaders: [{
       test: /\.jsx?$/,
