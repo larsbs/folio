@@ -14,8 +14,6 @@ function initCodeMirror(text, cursorPosition, selections) {
 
 function insertText(codeMirror, text, nextCursorPosition) {
   codeMirror.replaceSelection(text);
-  console.log(codeMirror.getCursor());
-  console.log(nextCursorPosition);
   return {
     text: codeMirror.getValue(),
     cursorPosition: nextCursorPosition ? nextCursorPosition : codeMirror.getCursor()
@@ -43,6 +41,7 @@ function setAs(currentValue, cursorPosition, somethingSelected, selections, as) 
     }));
   }
 
+  console.log(selections);
   codeMirror.replaceSelections(
     codeMirror.getSelections()
       .map(s => as === 'bold' ? `**${s}**` : `*${s}*`)
