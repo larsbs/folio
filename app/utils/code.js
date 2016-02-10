@@ -41,7 +41,6 @@ function setAs(currentValue, cursorPosition, somethingSelected, selections, as) 
     }));
   }
 
-  console.log(selections);
   codeMirror.replaceSelections(
     codeMirror.getSelections()
       .map(s => as === 'bold' ? `**${s}**` : `*${s}*`)
