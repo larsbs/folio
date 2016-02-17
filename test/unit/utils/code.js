@@ -25,8 +25,6 @@ module.exports = function (CodeUtils) {
           }
         };
         const resultState = CodeUtils.setAsBold(initialState);
-        console.log(resultState);
-        console.log(expectedState);
         expect(resultState).to.deep.equal(expectedState);
       });
       it('should set the cursor position in the middle of inserted bold symbols');

@@ -7,7 +7,7 @@ module.exports = {
     root: [
     ],
     modulesDirectories: [
-      'styles',
+      'app/styles',
       'web_modules',
       'node_modules'
     ],

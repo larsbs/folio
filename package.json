@@ -2,11 +2,11 @@
   "name": "folio",
   "version": "0.1.0",
   "description": "A lightweight markdown editor.",
-  "main": "main.js",
+  "main": "electron/main.js",
   "scripts": {
     "webpack-server": "webpack-dev-server --inline --hot --progress --colors",
     "webpack-test-server": "webpack-dev-server --inline --hot --progress --colors --config webpack.test.config.js",
-    "lint": "eslint main.js app/ test/",
+    "lint": "eslint main.js menu.js app/ test/",
     "test": "npm run webpack-test-server",
     "start": "npm run webpack-server"
   },
