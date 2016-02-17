@@ -9,6 +9,10 @@ import 'less/components/preview.less';
 
 class Preview extends React.Component {
 
+  shouldComponentUpdate(nextProps) {
+    return nextProps.text !== this.props.text;
+  }
+
   render() {
     return (
       <div className="preview-container">
