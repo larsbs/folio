@@ -4,17 +4,14 @@ import { Provider } from 'react-redux';
 
 import store from './store';
 import App from './containers/App';
+import ElectronListener from './utils/electron-listener';
 
 
-const render = () => {
-  ReactDOM.render(
-    <Provider store={store}>
-      <App />
-    </Provider>,
-    document.getElementById('root')
-  );
-};
+ElectronListener(store.dispatch);
 
-
-store.subscribe(render);
-render();
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+);

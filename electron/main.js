@@ -11,9 +11,9 @@ const menuTemplate = require('./menu/template');
 
 const INDEX_PATH = path.resolve(__dirname, '../app/index.html');
 const WINDOW_OPTIONS = {
-  width: 1600,
+  width: 1200,
   height: 800
-}
+};
 
 
 const menu = Menu.buildFromTemplate(menuTemplate);
@@ -33,6 +33,12 @@ app.on('window-all-closed', () => {
 app.on('ready', () => {
 
   mainWindow = new BrowserWindow(WINDOW_OPTIONS);
+
+  console.log(process.env.NODE_ENV);
+  if (process.env.NODE_ENV === 'development') {
+    mainWindow.openDevTools();
+  }
+
   mainWindow.loadURL(`file://${INDEX_PATH}`);
   mainWindow.on('closed', () => {
     mainWindow = null;

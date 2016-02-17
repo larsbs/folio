@@ -1,7 +1,8 @@
 const path = require('path');
+const electronRenderer = require('webpack-target-electron-renderer');
 
 
-module.exports = {
+const config = {
   devtools: 'eval-source-map',
   resolve: {
     root: [
@@ -75,3 +76,6 @@ module.exports = {
     }]
   }
 };
+
+config.target = electronRenderer(config);
+module.exports = config;

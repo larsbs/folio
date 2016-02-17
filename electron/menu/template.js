@@ -1,4 +1,6 @@
-const dialog = require('electron').dialog;
+'use strict';
+
+const menuActions = require('./actions');
 
 
 const menuTemplate = [{
@@ -9,13 +11,7 @@ const menuTemplate = [{
   }, {
     label: 'Open File...',
     accelerator: 'Ctrl+O',
-    click: (menuItem, browserWindow) => dialog.showOpenDialog(
-      browserWindow,
-      {
-        properties: ['openFile']
-      },
-      console.log
-    )
+    click: menuActions.onClickOpen,
   }, {
     type: 'separator'
   }, {
@@ -75,6 +71,9 @@ const menuTemplate = [{
 }, {
   label: 'View',
   submenu: [{
+    label: 'Toggle Developer Tools',
+    accelerator: 'Ctrl+Shift+I',
+    click: (item, focusedWindow) => focusedWindow ? focusedWindow.toggleDevTools() : false
   }]
 }, {
   label: 'Help',
