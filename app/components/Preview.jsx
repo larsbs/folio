@@ -10,7 +10,7 @@ import 'less/components/preview.less';
 class Preview extends React.Component {
 
   shouldComponentUpdate(nextProps) {
-    return nextProps.text !== this.props.text;
+    return nextProps.code !== this.props.code;
   }
 
   render() {

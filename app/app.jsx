@@ -7,7 +7,7 @@ import App from './containers/App';
 import ElectronListener from './utils/electron-listener';
 
 
-ElectronListener(store.dispatch);
+ElectronListener(store.getState, store.dispatch);
 
 ReactDOM.render(
   <Provider store={store}>

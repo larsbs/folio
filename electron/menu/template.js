@@ -17,7 +17,7 @@ const menuTemplate = [{
   }, {
     label: 'Save',
     accelerator: 'Ctrl+S',
-    role: 'save'
+    click: menuActions.onClickSave
   }, {
     label: 'Save As...',
     accelerator: 'Ctrl+Shift+S',
