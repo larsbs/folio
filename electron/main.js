@@ -34,7 +34,6 @@ app.on('ready', () => {
 
   mainWindow = new BrowserWindow(WINDOW_OPTIONS);
 
-  console.log(process.env.NODE_ENV);
   if (process.env.NODE_ENV === 'development') {
     mainWindow.openDevTools();
   }

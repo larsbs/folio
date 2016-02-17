@@ -10,7 +10,7 @@
     "lint": "eslint electron/ app/ test/",
     "test": "npm run webpack-test-server",
     "start": "NODE_ENV=development npm run webpack-server",
-    "start-electron": "NODE_ENV=development npm run electron"
+    "electron": "NODE_ENV=development npm run electron"
   },
   "keywords": [],
   "author": "Lorenzo Ruiz <lars.bs@hotmail.com>",
