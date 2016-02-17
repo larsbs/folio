@@ -17,7 +17,8 @@ class Code extends React.Component {
       lineNumbers: true,
       theme: 'material',
       lineWrapping: true,
-      value: this.props.value
+      value: this.props.value,
+      autofocus: true,
     });
 
     this.codeMirror.on('change', () => {
@@ -45,7 +46,7 @@ class Code extends React.Component {
   render() {
     return (
       <div className="code-container">
-        <div className={styles.codemirror + ' code cm-s-material'} id="codemirror" />
+        <div className={styles.codemirror + ' code'} id="codemirror" />
       </div>
     );
   }

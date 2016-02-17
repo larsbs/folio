@@ -71,6 +71,10 @@ const menuTemplate = [{
 }, {
   label: 'View',
   submenu: [{
+    label: 'Reload',
+    accelerator: 'Ctrl+R',
+    click: (item, focusedWindow) => focusedWindow ? focusedWindow.reload() : false
+  }, {
     label: 'Toggle Developer Tools',
     accelerator: 'Ctrl+Shift+I',
     click: (item, focusedWindow) => focusedWindow ? focusedWindow.toggleDevTools() : false

@@ -4,13 +4,12 @@
   "description": "A lightweight markdown editor.",
   "main": "electron/main.js",
   "scripts": {
-    "electron": "electron .",
     "webpack-server": "webpack-dev-server --inline --hot --progress --colors",
     "webpack-test-server": "webpack-dev-server --inline --hot --progress --colors --config webpack.test.config.js",
     "lint": "eslint electron/ app/ test/",
     "test": "npm run webpack-test-server",
     "start": "NODE_ENV=development npm run webpack-server",
-    "electron": "NODE_ENV=development npm run electron"
+    "electron": "NODE_ENV=development electron ."
   },
   "keywords": [],
   "author": "Lorenzo Ruiz <lars.bs@hotmail.com>",
