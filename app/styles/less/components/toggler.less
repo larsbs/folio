@@ -13,11 +13,33 @@
   position: relative;
   top: 0.06em;
   cursor: pointer;
+  margin-right: 10px;
 
-  div {
+  > div {
     height: 0.08em;
     width: 100%;
     background: @header-color;
     margin-bottom: 0.16em;
+    transition: all 0.5s;
+    transform-origin: 50%;
+  }
+}
+
+:local(.opened) {
+  composes: toggler;
+
+  > div {
+
+    &:first-child {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    &:nth-child(2) {
+      opacity: 0;
+    }
+
+    &:last-child {
+      transform: translateY(-5px) rotate(-45deg);
+    }
   }
 }

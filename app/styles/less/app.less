@@ -7,25 +7,37 @@
 
 html, body, #root {
   height: 100%;
+  overflow: hidden;
+}
+
+
+.master-container {
+  height: 100%;
+}
+
+.sidebar {
 }
 
 .app-container {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
+  width: 100%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  transition: left 0.5s;
+  border-left: 1px solid #111;
+  border-right: 1px solid #111;
 
   .header {
-    flex: 0;
-    flex-basis: 50px;
+    height: 50px;
   }
 
   .editor {
-    flex: 1;
+    height: ~'calc(100% - 50px - 25px)';
   }
 
   .status-bar {
-    flex: 0;
-    flex-basis: 25px;
+    height: 25px;
   }
 }
 
