@@ -3,16 +3,18 @@ import React from 'react';
 import 'less/components/sidebar.less';
 
 
-const Sidebar = () => (
+const Sidebar = ({ openedFiles }) => (
   <div className="sidebar">
     <div className="title">
       Open Files
     </div>
     <section className="open-files">
       <ul>
-        <li className="active">
-          LICENSE <i className="fa fa-fw fa-times" />
-        </li>
+        {openedFiles.map(file => (
+          <li className="active">
+            {file} <i className="fa fa-fw fa-times" />
+          </li>
+        ))}
         <li>
           README.md <i className="fa fa-fw fa-times" />
         </li>

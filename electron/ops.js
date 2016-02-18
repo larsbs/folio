@@ -4,6 +4,7 @@ const fs = require('fs');
 const dialog = require('electron').dialog;
 const store = require('./store');
 const storeKeys = require('./store/keys');
+const com = require('./com');
 
 
 function openFile(browserWindow) {
@@ -17,7 +18,8 @@ function openFile(browserWindow) {
           throw new Error(err);
         }
         store.setCurrentFile(filenames[0]);
-        browserWindow.webContents.send('OPEN_FILE', { text: data });
+        com.sendFileContent(browserWindow, data);
+        com.sendOpenedFiles(browserWindow, store.get(storeKeys.OPENED_FILES));
       });
     }
   });

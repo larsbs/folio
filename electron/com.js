@@ -16,6 +16,20 @@ function getFileContent(browserWindow) {
 }
 
 
+function sendOpenedFiles(browserWindow, openedFiles) {
+  browserWindow.webContents.send('RECEIVE_OPENED_FILES', {
+    openedFiles
+  });
+}
+
+
+function sendFileContent(browserWindow, content) {
+  browserWindow.webContents.send('OPEN_FILE', { text: content });
+}
+
+
 module.exports = {
-  getFileContent
+  getFileContent,
+  sendOpenedFiles,
+  sendFileContent,
 };

@@ -56,7 +56,7 @@ const menuTemplate = [{
   }, {
     label: 'Select All',
     accelerator: 'Ctrl+A',
-    role: 'select-all'
+    role: 'selectall'
   }, {
     type: 'separator'
   }, {

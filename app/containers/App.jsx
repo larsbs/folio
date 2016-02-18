@@ -15,10 +15,11 @@ const App = ({
   lines,
   words,
   showSidebar,
+  openedFiles,
   onClickToggler,
 }) => (
   <div className="master-container">
-    <Sidebar />
+    <Sidebar openedFiles={openedFiles} />
     <div className="app-container" style={{ left: showSidebar ? 230 : 0 }}>
       <Header onClickToggler={onClickToggler} sidebarShown={showSidebar} />
       <Editor />
@@ -32,6 +33,7 @@ const mapStateToProps = state => {
     lines: getNumberOfLines(state),
     words: getNumberOfWords(state),
     showSidebar: state.app.showSidebar,
+    openedFiles: state.app.openedFiles,
   };
 };
 
