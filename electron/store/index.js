@@ -1,5 +1,6 @@
 'use strict';
 
+const utils = require('../utils');
 const keys = require('./keys');
 
 
@@ -11,13 +12,20 @@ store.set(keys.OPENED_FILES, []);
 
 
 function addToOpenedFiles(filename) {
-  const openedFiles = store.get(keys.OPENED_FILES);
+  const openedFiles = store.get(keys.OPENED_FILES).map(file => {
+    file.active = false;
+    return file;
+  });
   store.set(keys.OPENED_FILES, openedFiles.concat([filename]));
 }
 
 function setCurrentFile(filename) {
   store.set(keys.CURRENT_FILE, filename);
-  addToOpenedFiles(filename);
+  addToOpenedFiles({
+    name: utils.getName(filename),
+    path: filename,
+    active: true
+  });
 }
 
 

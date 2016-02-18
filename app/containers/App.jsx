@@ -20,7 +20,7 @@ const App = ({
 }) => (
   <div className="master-container">
     <Sidebar openedFiles={openedFiles} />
-    <div className="app-container" style={{ left: showSidebar ? 230 : 0 }}>
+    <div className="app-container" style={{ left: showSidebar ? '25%' : 0 }}>
       <Header onClickToggler={onClickToggler} sidebarShown={showSidebar} />
       <Editor />
       <StatusBar lines={lines} words={words} />
