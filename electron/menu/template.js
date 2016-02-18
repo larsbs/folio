@@ -21,7 +21,7 @@ const menuTemplate = [{
   }, {
     label: 'Save As...',
     accelerator: 'Ctrl+Shift+S',
-    role: 'save-as'
+    click: menuActions.onClickSaveAs
   }, {
     type: 'separator'
   }, {

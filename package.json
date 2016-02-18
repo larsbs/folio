@@ -6,9 +6,11 @@
   "scripts": {
     "webpack-server": "webpack-dev-server --inline --hot --progress --colors",
     "webpack-test-server": "webpack-dev-server --inline --hot --progress --colors --config webpack.test.config.js",
+    "electron": "NODE_ENV=development electron .",
+    "webpack": "NODE_ENV=development npm run webpack-server",
     "lint": "eslint electron/ app/ test/",
     "test": "npm run webpack-test-server",
-    "start": "npm run webpack-server"
+    "start": "npm run webpack-server & electron ."
   },
   "keywords": [],
   "author": "Lorenzo Ruiz <lars.bs@hotmail.com>",

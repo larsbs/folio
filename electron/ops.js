@@ -11,24 +11,23 @@ function openFile(browserWindow) {
     properties: ['openFile']
   };
   dialog.showOpenDialog(browserWindow, dialogProperties, filenames => {
-    fs.readFile(filenames[0], { encoding: 'utf8' }, (err, data) => {
-      if (err) {
-        throw new Error(err);
-      }
-      store.setCurrentFile(filenames[0]);
-      browserWindow.webContents.send('OPEN_FILE', { text: data });
-    });
+    if (filenames.length > 0) {
+      fs.readFile(filenames[0], { encoding: 'utf8' }, (err, data) => {
+        if (err) {
+          throw new Error(err);
+        }
+        store.setCurrentFile(filenames[0]);
+        browserWindow.webContents.send('OPEN_FILE', { text: data });
+      });
+    }
   });
 }
 
 
-function saveCurrentFile(content) {
+function saveFile(content) {
   const currentFile = store.get(storeKeys.CURRENT_FILE);
   if ( ! currentFile) {
-    return dialog.showSaveDialog({}, filename => {
-      store.setCurrentFile(filename);
-      saveCurrentFile(content);
-    });
+    return saveFileAs(content);
   }
 
   fs.writeFile(currentFile, content, err => {
@@ -40,7 +39,19 @@ function saveCurrentFile(content) {
 }
 
 
+function saveFileAs(content) {
+  dialog.showSaveDialog({}, filename => {
+    if ( ! filename) {
+      return;
+    }
+    store.setCurrentFile(filename);
+    saveFile(content);
+  });
+}
+
+
 module.exports = {
   openFile,
-  saveCurrentFile
+  saveFile,
+  saveFileAs
 };

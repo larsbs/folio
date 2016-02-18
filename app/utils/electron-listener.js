@@ -6,7 +6,7 @@ export default function ElectronListener(getState, dispatch) {
   ipcRenderer.on('OPEN_FILE', (event, { text }) => {
     dispatch(updateText(text));
   });
-  ipcRenderer.on('SAVE_FILE', event => {
+  ipcRenderer.on('GET_FILE_CONTENT', event => {
     event.sender.send('RECEIVE_FILE_CONTENT', { content: getState().code.text });
   });
 }
