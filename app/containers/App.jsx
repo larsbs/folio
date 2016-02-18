@@ -19,7 +19,7 @@ const App = ({
 }) => (
   <div className="master-container">
     <Sidebar />
-    <div className="app-container" style={{ left: showSidebar ? 200 : 0 }}>
+    <div className="app-container" style={{ left: showSidebar ? 230 : 0 }}>
       <Header onClickToggler={onClickToggler} sidebarShown={showSidebar} />
       <Editor />
       <StatusBar lines={lines} words={words} />

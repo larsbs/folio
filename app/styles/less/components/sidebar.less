@@ -4,10 +4,81 @@
 // Author: Lorenzo Ruiz
 //------------------------
 
+@import '../colors';
+
+
+.no-list() {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
 
 .sidebar {
-  width: 200px;
+  width: 230px;
   height: 100%;
   position: absolute;
   background: #1e282d;
+  padding: 15px;
+
+  .title {
+    font-size: 13px;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: darken(@light-grey, 30%);
+    margin-top: 15px;
+    margin-bottom: 20px;
+  }
+
+  .open-files {
+    color: #f0f0f0;
+    font-size: 13px;
+    > ul {
+      .no-list;
+      > li {
+        margin-bottom: 5px;
+        padding: 5px 10px;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        > i {
+          display: none;
+        }
+
+        &:hover, &.active {
+          background: rgba(255, 255, 255, 0.1);
+        }
+
+        &:hover {
+          > i {
+            display: inline-block;
+          }
+        }
+      }
+    }
+  }
+
+  .buttons {
+    margin: 20px 0;
+    text-align: center;
+    > button {
+      width: 80%;
+      display: block;
+      margin: 0 auto;
+      font-size: 13px;
+      font-weight: bold;
+      text-transform: uppercase;
+      border-radius: 3px;
+      background: @teal;
+      border: 1px solid rgba(0, 0, 0, 0.8);
+      color: #f0f0f0;
+      padding: 10px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+
+      &:hover {
+        background: darken(@teal, 10%);
+      }
+    }
+  }
 }
