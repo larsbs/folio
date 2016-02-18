@@ -15,7 +15,7 @@ function addToOpenedFiles(filename) {
   const openedFiles = store.get(keys.OPENED_FILES).map(file => {
     file.active = false;
     return file;
-  });
+  }).filter(file => filename !== file.path);
   store.set(keys.OPENED_FILES, openedFiles.concat([filename]));
 }
 

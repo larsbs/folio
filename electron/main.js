@@ -3,9 +3,11 @@
 const path = require('path');
 const Menu = require('menu');
 const electron = require('electron');
+const ipcMain = electron.ipcMain;
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 
+const store = require('./store');
 const menuTemplate = require('./menu/template');
 
 
@@ -43,4 +45,9 @@ app.on('ready', () => {
     mainWindow = null;
   });
 
+});
+
+
+ipcMain.on('CHANGE_CURRENT_FILE', (event, payload) => {
+  store.setCurrentFile(payload.file.path);
 });
