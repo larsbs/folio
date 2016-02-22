@@ -30,10 +30,6 @@ export default function code(state = initialState, action) {
   }
 
   switch (action.type) {
-      case CodeActions.UPDATE_TEXT:
-        return Object.assign({}, state, {
-          text: action.payload.text
-        });
       case CodeActions.UPDATE_CURSOR_POSITION:
         return Object.assign({}, state, {
           cursorPosition: action.payload.position
