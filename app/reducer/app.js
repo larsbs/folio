@@ -9,6 +9,15 @@ const initialState = {
 };
 
 
+function isOpened(openedFiles, newFile) {
+  return !!openedFiles.find(file => file.path === newFile.path);
+}
+
+function findIndex(openedFiles, newFile) {
+  return openedFiles.map(file => file.path).indexOf(newFile.path);
+}
+
+
 export default function app(state = initialState, action) {
   switch (action.type) {
       case AppActions.TOGGLE_SIDEBAR:
@@ -17,6 +26,11 @@ export default function app(state = initialState, action) {
         });
       case AppActions.OPEN_FILE:
         const newFile = new FileState(action.payload.filename, action.payload.contents);
+        if (isOpened(state.openedFiles, newFile)) {
+          return Object.assign({}, state, {
+            activeFileIndex: findIndex(state.openedFiles, newFile)
+          });
+        }
         return Object.assign({}, state, {
           openedFiles: [
             ...state.openedFiles,
