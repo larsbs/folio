@@ -17,3 +17,20 @@ export function showOpenFile(webContents) {
     });
   });
 }
+
+
+export function saveFile(webContents, filename, contents) {
+  contents = contents || '';
+  fs.writeFile(filename, contents, err => {
+    if (err) throw new Error(err);
+    openFile(webContents, filename, contents);
+  });
+}
+
+
+export function saveFileAs(webContents, contents) {
+  dialog.showSaveDialog({}, filename => {
+    if ( ! filename) return;
+    saveFile(webContents, filename, contents);
+  });
+}

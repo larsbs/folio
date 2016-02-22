@@ -6,7 +6,7 @@ export function onClickOpen(item, browserWindow) {
 }
 
 export function onClickSave(item, browserWindow) {
-  ipcMain.emit('SAVE_FILE', null, { browserWindow });
+  browserWindow.webContents.send('SAVE_FILE');
 }
 
 export function onClickSaveAs(item, browserWindow) {

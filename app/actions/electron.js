@@ -6,3 +6,17 @@ export function showOpenFile() {
     electron: true
   };
 }
+
+
+export const SAVE_FILE = 'SAVE_FILE';
+
+export function saveFile(filename, contents) {
+  return {
+    type: SAVE_FILE,
+    electron: true,
+    payload: {
+      filename,
+      contents
+    }
+  };
+}

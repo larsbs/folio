@@ -1,7 +1,6 @@
 import path from 'path';
 import {
   Menu,
-  ipcMain,
   app,
   BrowserWindow
 } from 'electron';

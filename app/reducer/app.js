@@ -19,7 +19,7 @@ function findIndex(openedFiles, newFile) {
 
 function updateActiveFile(openedFiles, activeFile, contents) {
   if ( ! activeFile) {
-    activeFile = new FileState('Untitled', '');
+    activeFile = new FileState();
     return [ ...openedFiles, activeFile ];
   }
 
