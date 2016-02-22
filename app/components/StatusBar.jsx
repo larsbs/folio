@@ -9,6 +9,7 @@ const StatusBar = ({ lines, words }) => (
       <span>Lines: {lines}, Words: {words}</span>
     </div>
     <div className="right-status-bar">
+      <span>/home/lars/test.md (MODIFIED)</span>
     </div>
   </div>
 );
