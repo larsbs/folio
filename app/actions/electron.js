@@ -20,3 +20,16 @@ export function saveFile(filename, contents) {
     }
   };
 }
+
+
+export const SAVE_FILE_AS = 'SAVE_FILE_AS';
+
+export function saveFileAs(contents) {
+  return {
+    type: SAVE_FILE_AS,
+    electron: true,
+    payload: {
+      contents
+    }
+  };
+}
