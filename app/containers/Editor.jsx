@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 import Code from '../components/Code';
 import Preview from '../components/Preview';
 import {
-  updateText,
   updateCursorPosition,
   updateSelections
 } from '../actions/code';
+import { updateActiveFileContents } from '../actions/app';
 
 import styles from 'less/containers/editor';
 
@@ -58,7 +58,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onChangeCode: text => {
-      dispatch(updateText(text));
+      dispatch(updateActiveFileContents(text));
     },
     onCursorActivity: (position, selections) => {
       dispatch(updateCursorPosition(position));

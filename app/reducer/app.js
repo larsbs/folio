@@ -17,6 +17,21 @@ function findIndex(openedFiles, newFile) {
   return openedFiles.map(file => file.path).indexOf(newFile.path);
 }
 
+function updateActiveFile(openedFiles, activeFile, contents) {
+  if ( ! activeFile) {
+    activeFile = new FileState('Untitled', '');
+    return [ ...openedFiles, activeFile ];
+  }
+
+  activeFile.contents = contents;
+  return openedFiles.map(file => {
+    if (file.path === activeFile.path) {
+      return activeFile;
+    }
+    return file;
+  });
+}
+
 
 export default function app(state = initialState, action) {
   switch (action.type) {
@@ -41,6 +56,11 @@ export default function app(state = initialState, action) {
       case AppActions.CHANGE_ACTIVE_FILE:
         return Object.assign({}, state, {
           activeFileIndex: action.payload.fileIndex
+        });
+      case AppActions.UPDATE_ACTIVE_FILE_CONTENTS:
+        const activeFile = state.openedFiles[state.activeFileIndex];
+        return Object.assign({}, state, {
+          openedFiles: updateActiveFile(state.openedFiles, activeFile, action.payload.contents)
         });
       default:
         return Object.assign({}, state);

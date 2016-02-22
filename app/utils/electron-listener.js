@@ -1,5 +1,4 @@
 import { ipcRenderer } from 'electron';
-import { updateText } from '../actions/code';
 import { updateOpenedFiles, openFile } from '../actions/app';
 import { showOpenFile } from '../actions/electron';
 

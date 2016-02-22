@@ -30,3 +30,15 @@ export function changeActiveFile(fileIndex) {
     }
   };
 }
+
+
+export const UPDATE_ACTIVE_FILE_CONTENTS = 'UPDATE_ACTIVE_FILE_CONTENTS';
+
+export function updateActiveFileContents(contents) {
+  return {
+    type: UPDATE_ACTIVE_FILE_CONTENTS,
+    payload: {
+      contents
+    }
+  };
+}
