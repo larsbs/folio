@@ -25,7 +25,7 @@ const App = ({
     <div className="app-container" style={{ left: showSidebar ? '25%' : 0 }}>
       <Header onClickToggler={onClickToggler} sidebarShown={showSidebar} />
       <Editor />
-      <StatusBar lines={lines} words={words} />
+      <StatusBar lines={lines} words={words} activeFile={openedFiles[activeFileIndex]} />
     </div>
   </div>
 );
