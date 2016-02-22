@@ -6,6 +6,7 @@ const config = {
   devtools: 'eval-source-map',
   resolve: {
     root: [
+      path.join(__dirname, 'vendor')
     ],
     modulesDirectories: [
       'app/styles',
@@ -33,7 +34,7 @@ const config = {
       test: /\.jsx?$/,
       include: [
         path.join(__dirname, 'app'),
-        path.join(__dirname, 'vendor')
+        path.join(__dirname, 'vendor'),
       ],
       loaders: [
         'eslint'
@@ -43,7 +44,7 @@ const config = {
       test: /\.jsx?$/,
       include: [
         path.join(__dirname, 'app'),
-        path.join(__dirname, 'vendor')
+        path.join(__dirname, 'vendor'),
       ],
       loaders: [
         'react-hot',

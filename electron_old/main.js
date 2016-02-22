@@ -8,7 +8,8 @@ import {
 import windowStateKeeper from 'electron-window-state';
 
 import initListeners from './listeners';
-import menuTemplate from './menu/template';
+const store = require('./store');
+const menuTemplate = require('./menu/template');
 
 
 const INDEX_PATH = path.resolve(__dirname, '../../app/index.html');
@@ -50,4 +51,9 @@ app.on('ready', () => {
 
   WINDOW_OPTIONS.manage(mainWindow);
 
+});
+
+
+ipcMain.on('CHANGE_CURRENT_FILE', (event, payload) => {
+  store.setCurrentFile(payload.file.path);
 });

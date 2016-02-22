@@ -1,5 +1,11 @@
-import { createStore } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import reducer from '../reducer';
+import electronMiddleware from 'electron-middleware';
 
 
-export default createStore(reducer);
+export default createStore(
+  reducer,
+  compose(
+    applyMiddleware(electronMiddleware)
+  )
+);

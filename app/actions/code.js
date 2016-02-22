@@ -1,16 +1,17 @@
-export const UPDATE_TEXT = Symbol.for('UPDATE_TEXT');
+export const UPDATE_TEXT = 'UPDATE_TEXT';
 
 export function updateText(text) {
   return {
     type: UPDATE_TEXT,
     payload: {
       text
-    }
+    },
+    electron: true
   };
 }
 
 
-export const UPDATE_CURSOR_POSITION = Symbol.for('UPDATE_CURSOR_POSITION');
+export const UPDATE_CURSOR_POSITION = 'UPDATE_CURSOR_POSITION';
 
 export function updateCursorPosition(position) {
   return {
@@ -22,7 +23,7 @@ export function updateCursorPosition(position) {
 }
 
 
-export const UPDATE_SELECTIONS = Symbol.for('UPDATE_SELECTIONS');
+export const UPDATE_SELECTIONS = 'UPDATE_SELECTIONS';
 
 export function updateSelections(selections) {
   return {

@@ -7,13 +7,26 @@ export function toggleSidebar() {
 }
 
 
-export const UPDATE_OPENED_FILES = 'UPDATE_OPENED_FILES';
+export const OPEN_FILE = 'OPEN_FILE';
 
-export function updateOpenedFiles(openedFiles) {
+export function openFile(filename, contents) {
   return {
-    type: UPDATE_OPENED_FILES,
+    type: OPEN_FILE,
     payload: {
-      openedFiles
+      filename,
+      contents
+    }
+  };
+}
+
+
+export const CHANGE_ACTIVE_FILE = 'CHANGE_ACTIVE_FILE';
+
+export function changeActiveFile(fileIndex) {
+  return {
+    type: CHANGE_ACTIVE_FILE,
+    payload: {
+      fileIndex
     }
   };
 }

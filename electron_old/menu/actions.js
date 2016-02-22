@@ -2,7 +2,7 @@ import { ipcMain } from 'electron';
 
 
 export function onClickOpen(item, browserWindow) {
-  browserWindow.webContents.send('SHOW_OPEN_FILE');
+  browserWindow.webContents.send('OPEN_FILE');
 }
 
 export function onClickSave(item, browserWindow) {

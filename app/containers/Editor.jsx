@@ -45,9 +45,10 @@ const Editor = ({
 };
 
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
+  const activeFile = state.app.openedFiles[state.app.activeFileIndex] || {};
   return {
-    text: state.code.text,
+    text: activeFile.contents || '',
     cursorPosition: state.code.cursorPosition,
     showCode: state.toggleViews.showCode,
     showPreview: state.toggleViews.showPreview

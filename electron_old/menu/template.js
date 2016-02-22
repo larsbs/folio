@@ -5,7 +5,7 @@ import {
 } from './actions';
 
 
-export default [{
+const menuTemplate = [{
   label: 'File',
   submenu: [{
     label: 'New File',
@@ -86,3 +86,6 @@ export default [{
   submenu: [{
   }]
 }];
+
+
+module.exports = menuTemplate;

@@ -1,10 +1,8 @@
-export const OPEN_FILE = 'OPEN_FILE';
+export const SHOW_OPEN_FILE = 'SHOW_OPEN_FILE';
 
-export function openFile(contents) {
+export function showOpenFile() {
   return {
-    type: OPEN_FILE,
-    payload: {
-      contents
-    }
+    type: SHOW_OPEN_FILE,
+    electron: true
   };
 }

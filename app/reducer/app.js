@@ -1,9 +1,11 @@
 import * as AppActions from '../actions/app';
+import FileState from '../utils/file-state';
 
 
 const initialState = {
   showSidebar: false,
-  openedFiles: []
+  openedFiles: [],
+  activeFileIndex: 0
 };
 
 
@@ -13,9 +15,18 @@ export default function app(state = initialState, action) {
         return Object.assign({}, state, {
           showSidebar: !state.showSidebar
         });
-      case AppActions.UPDATE_OPENED_FILES:
+      case AppActions.OPEN_FILE:
+        const newFile = new FileState(action.payload.filename, action.payload.contents);
         return Object.assign({}, state, {
-          openedFiles: action.payload.openedFiles
+          openedFiles: [
+            ...state.openedFiles,
+            newFile
+          ],
+          activeFileIndex: state.openedFiles.length
+        });
+      case AppActions.CHANGE_ACTIVE_FILE:
+        return Object.assign({}, state, {
+          activeFileIndex: action.payload.fileIndex
         });
       default:
         return Object.assign({}, state);
