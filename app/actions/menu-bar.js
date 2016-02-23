@@ -1,4 +1,4 @@
-export const SET_AS_BOLD = Symbol.for('SET_AS_BOLD');
+export const SET_AS_BOLD = 'SET_AS_BOLD';
 
 export function setAsBold() {
   return {
@@ -7,7 +7,7 @@ export function setAsBold() {
 }
 
 
-export const SET_AS_ITALIC = Symbol.for('SET_AS_ITALIC');
+export const SET_AS_ITALIC = 'SET_AS_ITALIC';
 
 export function setAsItalic() {
   return {
@@ -16,7 +16,7 @@ export function setAsItalic() {
 }
 
 
-export const CREATE_LINK = Symbol.for('CREATE_LINK');
+export const CREATE_LINK = 'CREATE_LINK';
 
 export function createLink() {
   return {
@@ -25,7 +25,7 @@ export function createLink() {
 }
 
 
-export const CREATE_IMAGE_LINK = Symbol.for('CREATE_IMAGE_LINK');
+export const CREATE_IMAGE_LINK = 'CREATE_IMAGE_LINK';
 
 export function createImageLink() {
   return {
@@ -34,7 +34,7 @@ export function createImageLink() {
 }
 
 
-export const CREATE_QUOTE = Symbol.for('CREATE_QUOTE');
+export const CREATE_QUOTE = 'CREATE_QUOTE';
 
 export function createQuote() {
   return {
@@ -42,7 +42,7 @@ export function createQuote() {
   };
 }
 
-export const CREATE_UL_LIST = Symbol.for('CREATE_UL_LIST');
+export const CREATE_UL_LIST = 'CREATE_UL_LIST';
 
 export function createUlList() {
   return {
@@ -51,7 +51,7 @@ export function createUlList() {
 }
 
 
-export const CREATE_OL_LIST = Symbol.for('CREATE_OL_LIST');
+export const CREATE_OL_LIST = 'CREATE_OL_LIST';
 
 export function createOlList() {
   return {
@@ -60,7 +60,7 @@ export function createOlList() {
 }
 
 
-export const CREATE_CODE_BLOCK = Symbol.for('CREATE_CODE_BLOCK');
+export const CREATE_CODE_BLOCK = 'CREATE_CODE_BLOCK';
 
 export function createCodeBlock() {
   return {
@@ -69,7 +69,7 @@ export function createCodeBlock() {
 }
 
 
-export const CREATE_HEADER = Symbol.for('CREATE_HEADER');
+export const CREATE_HEADER = 'CREATE_HEADER';
 
 export function createHeader() {
   return {

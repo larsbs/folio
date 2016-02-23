@@ -1,4 +1,4 @@
-export const TOGGLE_CODE = Symbol.for('TOGGLE_CODE');
+export const TOGGLE_CODE = 'TOGGLE_CODE';
 
 export function toggleCode() {
   return {
@@ -7,7 +7,7 @@ export function toggleCode() {
 }
 
 
-export const TOGGLE_PREVIEW = Symbol.for('TOGGLE_PREVIEW');
+export const TOGGLE_PREVIEW = 'TOGGLE_PREVIEW';
 
 export function togglePreview() {
   return {

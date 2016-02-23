@@ -4,7 +4,6 @@ import menuBar from './menu-bar';
 
 
 const initialState = {
-  text: '',
   cursorPosition: {
     line: 0,
     ch: 0

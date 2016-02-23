@@ -139,6 +139,14 @@ export default function app(state = initialState, action) {
           ...state,
           ...setFileAsSaved(state.openedFiles, savedFile, activeFile)
         }; }
+      case AppActions.REMOVE_OPENED_FILE:
+        const { fileIndex } = action.payload;
+        const filteredOpenedFiles = state.openedFiles.filter((file, i) => i !== fileIndex);
+        return {
+          ...state,
+          openedFiles: filteredOpenedFiles.length > 0 ? filteredOpenedFiles : [ new FileState() ],
+          activeFileIndex: fileIndex === state.activeFileIndex ? 0 : state.activeFileIndex,
+        };
       default:
         return { ...state };
   }

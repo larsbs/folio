@@ -65,3 +65,15 @@ export function newFile() {
     type: NEW_FILE
   };
 }
+
+
+export const REMOVE_OPENED_FILE = 'REMOVE_OPENED_FILE';
+
+export function removeOpenedFile(fileIndex) {
+  return {
+    type: REMOVE_OPENED_FILE,
+    payload: {
+      fileIndex
+    }
+  };
+}
