@@ -11,6 +11,10 @@ const initialState = {
 };
 
 
+function getActiveFile(state) {
+  return state.openedFiles[state.activeFileIndex];
+}
+
 function isOpened(openedFiles, newFile) {
   return !!openedFiles.find(file => file.path === newFile.path);
 }
@@ -34,9 +38,15 @@ function updateActiveFile(openedFiles, activeFile, contents) {
   });
 }
 
-function openFile(openedFiles, newFile) {
+function openFile(openedFiles, newFile, update) {
   if (isOpened(openedFiles, newFile)) {
     return {
+      openedFiles: openedFiles.map(file => {
+        if (update && file.path === newFile.path) {
+          return newFile;
+        }
+        return file;
+      }),
       activeFileIndex: findIndex(openedFiles, newFile)
     };
   }
@@ -55,14 +65,14 @@ function openFile(openedFiles, newFile) {
   };
 }
 
-function setFileAsSaved(openedFiles, filename, contents, originalFilename) {
-  if (originalFilename !== filename) {
-    return setFileAsSavedAs(openedFiles, filename, contents, originalFilename);
+function setFileAsSaved(openedFiles, savedFile, activeFile) {
+  if (savedFile.path !== activeFile.path) {
+    return setFileAsSavedAs(openedFiles, savedFile, activeFile);
   }
 
   return {
     openedFiles: openedFiles.map(file => {
-      if (file.path === filename) {
+      if (file.path === savedFile.path) {
         file.saved = true;
       }
       return file;
@@ -70,26 +80,25 @@ function setFileAsSaved(openedFiles, filename, contents, originalFilename) {
   };
 }
 
-function setFileAsSavedAs(openedFiles, filename, contents, originalFilename) {
-  if ( ! originalFilename) {
+function setFileAsSavedAs(openedFiles, savedFile, activeFile) {
+  if ( ! activeFile.path && ! isOpened(openedFiles, savedFile)) {
     return {
       openedFiles: openedFiles.map(file => {
-        if (file.contents === contents) {
-          return new FileState(filename, contents);
+        if (file.id === activeFile.id) {
+          return savedFile;
         }
         return file;
       })
     };
   }
 
-  const newFile = new FileState(filename, contents);
   const restoredOpenedFiles = openedFiles.map(file => {
-    if (file.path === originalFilename) {
+    if (file.id === activeFile.id) {
       file.restoreLastSavedContents();
     }
     return file;
-  });
-  return openFile(restoredOpenedFiles, newFile);
+  }).filter(file => !!file.path || file.id !== activeFile.id);
+  return openFile(restoredOpenedFiles, savedFile, true);
 }
 
 
@@ -99,27 +108,37 @@ export default function app(state = initialState, action) {
         return { ...state,
           showSidebar: !state.showSidebar
         };
-      case AppActions.OPEN_FILE:
+      case AppActions.NEW_FILE:
+        return { ...state,
+          openedFiles: [
+            ...state.openedFiles,
+            new FileState()
+          ],
+          activeFileIndex: state.openedFiles.length
+        };
+      case AppActions.OPEN_FILE: {
         const newFile = new FileState(action.payload.filename, action.payload.contents);
         return {
           ...state,
           ...openFile(state.openedFiles, newFile)
-        };
+        }; }
       case AppActions.CHANGE_ACTIVE_FILE:
         return { ...state,
           activeFileIndex: action.payload.fileIndex
         };
       case AppActions.UPDATE_ACTIVE_FILE_CONTENTS:
-        const activeFile = state.openedFiles[state.activeFileIndex];
+        const activeFile = getActiveFile(state);
         return { ...state,
           openedFiles: updateActiveFile(state.openedFiles, activeFile, action.payload.contents)
         };
-      case AppActions.FILE_SAVED:
-        const { filename, originalFilename, contents } = action.payload;
+      case AppActions.FILE_SAVED: {
+        const { filename, contents } = action.payload;
+        const savedFile = new FileState(filename, contents);
+        const activeFile = getActiveFile(state);
         return {
           ...state,
-          ...setFileAsSaved(state.openedFiles, filename, contents, originalFilename)
-        };
+          ...setFileAsSaved(state.openedFiles, savedFile, activeFile)
+        }; }
       default:
         return { ...state };
   }

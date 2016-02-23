@@ -6,6 +6,7 @@ export default class FileState {
     this._contents = contents ? contents : '';
     this._saved = filename ? true : false;
     this._lastSavedContents = this._contents;
+    this.id = Date.now() + Math.floor(Math.random() * 1000000);
   }
 
   set contents(contents) {

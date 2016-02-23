@@ -56,3 +56,12 @@ export function fileSaved(filename, contents, originalFilename) {
     }
   };
 }
+
+
+export const NEW_FILE = 'NEW_FILE';
+
+export function newFile() {
+  return {
+    type: NEW_FILE
+  };
+}

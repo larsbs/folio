@@ -1,9 +1,13 @@
 import { ipcRenderer } from 'electron';
-import { openFile, fileSaved } from '../actions/app';
+import { openFile, fileSaved, newFile } from '../actions/app';
 import { showOpenFile, saveFile, saveFileAs } from '../actions/electron';
 
 
 export default function ElectronListener(getState, dispatch) {
+
+  ipcRenderer.on('NEW_FILE', () => {
+    dispatch(newFile());
+  });
 
   ipcRenderer.on('SHOW_OPEN_FILE', () => {
     dispatch(showOpenFile());

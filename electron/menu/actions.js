@@ -1,3 +1,7 @@
+export function onClickNew(item, browserWindow) {
+  browserWindow.webContents.send('NEW_FILE');
+}
+
 export function onClickOpen(item, browserWindow) {
   browserWindow.webContents.send('SHOW_OPEN_FILE');
 }

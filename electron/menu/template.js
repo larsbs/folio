@@ -1,4 +1,5 @@
 import {
+  onClickNew,
   onClickOpen,
   onClickSave,
   onClickSaveAs,
@@ -10,6 +11,7 @@ export default [{
   submenu: [{
     label: 'New File',
     accelerator: 'Ctrl+N',
+    click: onClickNew,
   }, {
     label: 'Open File...',
     accelerator: 'Ctrl+O',
