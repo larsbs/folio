@@ -36,6 +36,7 @@ class Code extends React.Component {
   }
 
   componentDidUpdate() {
+    this.codeMirror.refresh();
     if (this.props.value !== this.codeMirror.getValue()) {
       this.codeMirror.setValue(this.props.value);
       this.codeMirror.focus();
