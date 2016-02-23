@@ -6,6 +6,7 @@ import Editor from './Editor';
 import StatusBar from '../components/StatusBar';
 import Sidebar from '../components/Sidebar';
 import { toggleSidebar, changeActiveFile, removeOpenedFile } from '../actions/app';
+import { showOpenFile } from '../actions/electron';
 import { getNumberOfLines, getNumberOfWords } from '../selectors/code';
 
 import 'less/app';
@@ -20,13 +21,15 @@ const App = ({
   onClickToggler,
   onClickFile,
   onClickRemove,
+  onClickOpenFile,
 }) => (
   <div className="master-container">
     <Sidebar
       openedFiles={openedFiles}
       activeFileIndex={activeFileIndex}
       onClickFile={onClickFile}
-      onClickRemove={onClickRemove} />
+      onClickRemove={onClickRemove}
+      onClickOpenFile={onClickOpenFile} />
     <div className="app-container" style={{ left: showSidebar ? '25%' : 0 }}>
       <Header onClickToggler={onClickToggler} sidebarShown={showSidebar} />
       <Editor />
@@ -56,7 +59,10 @@ const mapDispatchToProps = dispatch => {
     },
     onClickRemove: fileIndex => {
       dispatch(removeOpenedFile(fileIndex));
-    }
+    },
+    onClickOpenFile: () => {
+      dispatch(showOpenFile());
+    },
   };
 };
 

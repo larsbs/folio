@@ -14,7 +14,13 @@ const File = ({ file, fileIndex, isActive, onClickFile, onClickRemove }) => (
   </li>
 );
 
-const Sidebar = ({ openedFiles, activeFileIndex, onClickFile, onClickRemove }) => (
+const Sidebar = ({
+  openedFiles,
+  activeFileIndex,
+  onClickFile,
+  onClickRemove,
+  onClickOpenFile,
+}) => (
   <div className="sidebar">
     <div className="title">
       Open Files
@@ -33,7 +39,7 @@ const Sidebar = ({ openedFiles, activeFileIndex, onClickFile, onClickRemove }) =
       </ul>
     </section>
     <section className="buttons">
-      <button>Open File</button>
+      <button onClick={onClickOpenFile}>Open File</button>
     </section>
   </div>
 );
