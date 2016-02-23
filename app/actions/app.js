@@ -42,3 +42,17 @@ export function updateActiveFileContents(contents) {
     }
   };
 }
+
+
+export const FILE_SAVED = 'FILE_SAVED';
+
+export function fileSaved(filename, contents, originalFilename) {
+  return {
+    type: FILE_SAVED,
+    payload: {
+      filename,
+      contents,
+      originalFilename
+    }
+  };
+}

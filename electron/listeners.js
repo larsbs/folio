@@ -20,8 +20,8 @@ export default function initListeners() {
     saveFile(event.sender, filename, contents);
   });
 
-  ipcMain.on('SAVE_FILE_AS', (event, { contents }) => {
-    saveFileAs(event.sender, contents);
+  ipcMain.on('SAVE_FILE_AS', (event, { contents, originalFilename }) => {
+    saveFileAs(event.sender, contents, originalFilename);
   });
 
 }

@@ -1,5 +1,5 @@
 import { ipcRenderer } from 'electron';
-import { openFile } from '../actions/app';
+import { openFile, fileSaved } from '../actions/app';
 import { showOpenFile, saveFile, saveFileAs } from '../actions/electron';
 
 
@@ -20,7 +20,11 @@ export default function ElectronListener(getState, dispatch) {
 
   ipcRenderer.on('SAVE_FILE_AS', () => {
     const activeFile = getState().app.openedFiles[getState().app.activeFileIndex] || {};
-    dispatch(saveFileAs(activeFile.contents));
+    dispatch(saveFileAs(activeFile.contents, activeFile.path));
+  });
+
+  ipcRenderer.on('FILE_SAVED', (event, { filename, contents, originalFilename }) => {
+    dispatch(fileSaved(filename, contents, originalFilename));
   });
 
 }

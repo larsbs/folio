@@ -1,6 +1,6 @@
 import fs from 'fs';
 import { dialog } from 'electron';
-import { openFile } from './senders';
+import { openFile, fileSaved } from './senders';
 
 
 export function showOpenFile(webContents) {
@@ -19,18 +19,18 @@ export function showOpenFile(webContents) {
 }
 
 
-export function saveFile(webContents, filename, contents) {
+export function saveFile(webContents, filename, contents, originalFilename) {
   contents = contents || '';
   fs.writeFile(filename, contents, err => {
     if (err) throw new Error(err);
-    openFile(webContents, filename, contents);
+    fileSaved(webContents, filename, contents, originalFilename || filename);
   });
 }
 
 
-export function saveFileAs(webContents, contents) {
+export function saveFileAs(webContents, contents, originalFilename) {
   dialog.showSaveDialog({}, filename => {
     if ( ! filename) return;
-    saveFile(webContents, filename, contents);
+    saveFile(webContents, filename, contents, originalFilename);
   });
 }
