@@ -75,6 +75,20 @@ export default [{
 }, {
   label: 'View',
   submenu: [{
+    label: 'Change Preview Theme'
+  }, {
+    label: 'Change Code Theme'
+  }, {
+    type: 'separator'
+  }, {
+    label: 'Detach Preview',
+  }, {
+    label: 'Toggle Code',
+  }, {
+    label: 'Toggle Preview',
+  }, {
+    type: 'separator'
+  }, {
     label: 'Reload',
     accelerator: 'Ctrl+R',
     click: (item, focusedWindow) => focusedWindow ? focusedWindow.reload() : false
@@ -86,5 +100,20 @@ export default [{
 }, {
   label: 'Help',
   submenu: [{
+    label: 'View License'
+  }, {
+    type: 'separator'
+  }, {
+    label: 'Report Issue'
+  }, {
+    label: 'Follow on Twitter'
+  }, {
+    type: 'separator'
+  }, {
+    label: 'Check for Updates...'
+  }, {
+    type: 'separator'
+  }, {
+    label: 'About Folio'
   }]
 }];
