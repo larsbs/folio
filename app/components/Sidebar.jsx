@@ -9,7 +9,7 @@ const File = ({ file, fileIndex, isActive, onClickFile, onClickRemove }) => (
       event.stopPropagation();
       onClickRemove(fileIndex);
     }} />
-    <span className="filename">{file.name}</span>
+    <span className="filename">{file.name}{file.saved || ! file.path ? '' : ' *'}</span>
     <span className="filepath">{file.path}</span>
   </li>
 );
