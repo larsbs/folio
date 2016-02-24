@@ -1,5 +1,5 @@
 import { ipcRenderer } from 'electron';
-import { openFile, fileSaved, newFile } from '../actions/app';
+import { openFile, fileSaved, newFile, detachPreview, attachPreview } from '../actions/app';
 import { showOpenFile, saveFile, saveFileAs } from '../actions/electron';
 import { toggleCode, togglePreview } from '../actions/toggle-views';
 
@@ -30,6 +30,14 @@ export default function ElectronListener(getState, dispatch) {
 
   ipcRenderer.on('FILE_SAVED', (event, { filename, contents, originalFilename }) => {
     dispatch(fileSaved(filename, contents, originalFilename));
+  });
+
+  ipcRenderer.on('DETACH_PREVIEW', () => {
+    dispatch(detachPreview());
+  });
+
+  ipcRenderer.on('ATTACH_PREVIEW', () => {
+    dispatch(attachPreview());
   });
 
   ipcRenderer.on('TOGGLE_CODE', () => {

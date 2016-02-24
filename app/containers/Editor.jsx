@@ -53,7 +53,7 @@ const mapStateToProps = state => {
     text: activeFile.contents || '',
     cursorPosition: state.code.cursorPosition,
     showCode: state.toggleViews.showCode,
-    showPreview: state.toggleViews.showPreview
+    showPreview: state.toggleViews.showPreview && ! state.app.isPreviewDetached
   };
 };
 

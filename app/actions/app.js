@@ -77,3 +77,21 @@ export function removeOpenedFile(fileIndex) {
     }
   };
 }
+
+
+export const DETACH_PREVIEW = 'DETACH_PREVIEW';
+
+export function detachPreview() {
+  return {
+    type: DETACH_PREVIEW
+  };
+}
+
+
+export const ATTACH_PREVIEW = 'ATTACH_PREVIEW';
+
+export function attachPreview() {
+  return {
+    type: ATTACH_PREVIEW
+  };
+}

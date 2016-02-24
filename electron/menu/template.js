@@ -3,6 +3,7 @@ import {
   onClickOpen,
   onClickSave,
   onClickSaveAs,
+  onClickDetachPreview,
   onClickToggleCode,
   onClickTogglePreview
 } from './actions';
@@ -84,6 +85,7 @@ export default [{
     type: 'separator'
   }, {
     label: 'Detach Preview',
+    click: onClickDetachPreview,
   }, {
     label: 'Toggle Code',
     click: onClickToggleCode,

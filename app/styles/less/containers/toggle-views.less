@@ -35,3 +35,10 @@
     background: darken(@teal, 10%);
   }
 }
+
+:local(.detached) {
+  composes: button;
+  color: darken(#fff, 50%);
+  background: none !important;
+  cursor: default;
+}

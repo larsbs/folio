@@ -9,7 +9,8 @@ const initialState = {
   openedFiles: [
     new FileState()
   ],
-  activeFileIndex: 0
+  activeFileIndex: 0,
+  isPreviewDetached: false
 };
 
 
@@ -168,6 +169,14 @@ export default function app(state = initialState, action) {
           ...state,
           openedFiles: filteredOpenedFiles.length > 0 ? filteredOpenedFiles : [ new FileState() ],
           activeFileIndex: fileIndex === state.activeFileIndex ? 0 : state.activeFileIndex,
+        };
+      case AppActions.DETACH_PREVIEW:
+        return { ...state,
+          isPreviewDetached: true
+        };
+      case AppActions.ATTACH_PREVIEW:
+        return { ...state,
+          isPreviewDetached: false
         };
       default:
         return { ...state };
