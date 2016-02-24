@@ -94,7 +94,6 @@ export function createQuote(codeMirror) {
 
 
 export function createList(codeMirror, type) {
-  const cursor = codeMirror.getCursor();
   const ul = type === 'ul';
   if ( ! codeMirror.somethingSelected()) {
     return insertInNewLine(codeMirror, ul ? '  * ' : '  1. ');
