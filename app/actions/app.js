@@ -37,6 +37,7 @@ export const UPDATE_ACTIVE_FILE_CONTENTS = 'UPDATE_ACTIVE_FILE_CONTENTS';
 export function updateActiveFileContents(contents) {
   return {
     type: UPDATE_ACTIVE_FILE_CONTENTS,
+    electron: true,
     payload: {
       contents
     }
@@ -83,7 +84,8 @@ export const DETACH_PREVIEW = 'DETACH_PREVIEW';
 
 export function detachPreview() {
   return {
-    type: DETACH_PREVIEW
+    type: DETACH_PREVIEW,
+    electron: true
   };
 }
 
@@ -92,6 +94,19 @@ export const ATTACH_PREVIEW = 'ATTACH_PREVIEW';
 
 export function attachPreview() {
   return {
-    type: ATTACH_PREVIEW
+    type: ATTACH_PREVIEW,
+    electron: true
+  };
+}
+
+
+export const UPDATE_PREVIEW_CONTENTS = 'UPDATE_PREVIEW_CONTENTS';
+
+export function updatePreviewContents(contents) {
+  return {
+    type: UPDATE_PREVIEW_CONTENTS,
+    payload: {
+      contents
+    }
   };
 }

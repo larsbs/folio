@@ -1,6 +1,41 @@
 import fs from 'fs';
-import { dialog } from 'electron';
-import { openFile, fileSaved } from './senders';
+import path from 'path';
+import { dialog, BrowserWindow } from 'electron';
+import { openFile, fileSaved, attachPreview } from './senders';
+
+
+const INDEX_PATH = path.resolve(__dirname, '../../app/index.html');
+const MAIN_URL = `file://${INDEX_PATH}`;
+const PREVIEW_URL = `${MAIN_URL}#preview`;
+
+
+export function displayMainWindow(options) {
+  let mainWindow = new BrowserWindow(options);
+
+  if (process.env.NODE_ENV === 'development') {
+    mainWindow.openDevTools();
+  }
+
+  mainWindow.loadURL(MAIN_URL);
+
+  return mainWindow;
+}
+
+
+export function displayPreviewWindow(options) {
+  options = {
+    ...options,
+    frame: false
+  };
+  let previewWindow = new BrowserWindow(options);
+  previewWindow.loadURL(PREVIEW_URL);
+  return previewWindow;
+}
+
+
+export function hidePreviewWindow(webContents) {
+  attachPreview(webContents);
+}
 
 
 export function showOpenFile(webContents) {

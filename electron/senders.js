@@ -10,3 +10,10 @@ export const FILE_SAVED = 'FILE_SAVED';
 export function fileSaved(webContents, filename, contents, originalFilename) {
   webContents.send(FILE_SAVED, { filename, contents, originalFilename });
 }
+
+
+export const ATTACH_PREVIEW = 'ATTACH_PREVIEW';
+
+export function attachPreview(webContents) {
+  webContents.send(ATTACH_PREVIEW);
+}

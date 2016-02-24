@@ -9,9 +9,11 @@ import ElectronListener from './utils/electron-listener';
 
 ElectronListener(store.getState, store.dispatch);
 
+const isPreviewWindow = window.location.hash === '#preview';
+
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <App isPreviewWindow={isPreviewWindow} />
   </Provider>,
   document.getElementById('root')
 );

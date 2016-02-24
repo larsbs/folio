@@ -1,5 +1,5 @@
 import { ipcRenderer } from 'electron';
-import { openFile, fileSaved, newFile, detachPreview, attachPreview } from '../actions/app';
+import { openFile, fileSaved, newFile, detachPreview, attachPreview, updatePreviewContents } from '../actions/app';
 import { showOpenFile, saveFile, saveFileAs } from '../actions/electron';
 import { toggleCode, togglePreview } from '../actions/toggle-views';
 
@@ -46,6 +46,10 @@ export default function ElectronListener(getState, dispatch) {
 
   ipcRenderer.on('TOGGLE_PREVIEW', () => {
     dispatch(togglePreview());
+  });
+
+  ipcRenderer.on('UPDATE_PREVIEW_CONTENTS', (event, { contents }) => {
+    dispatch(updatePreviewContents(contents));
   });
 
 }

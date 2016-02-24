@@ -10,7 +10,8 @@ const initialState = {
     new FileState()
   ],
   activeFileIndex: 0,
-  isPreviewDetached: false
+  isPreviewDetached: false,
+  previewContents: ''  // Only used in preview detached mode
 };
 
 
@@ -177,6 +178,10 @@ export default function app(state = initialState, action) {
       case AppActions.ATTACH_PREVIEW:
         return { ...state,
           isPreviewDetached: false
+        };
+      case AppActions.UPDATE_PREVIEW_CONTENTS:
+        return { ...state,
+          previewContents: action.payload.contents
         };
       default:
         return { ...state };
