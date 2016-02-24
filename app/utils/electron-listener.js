@@ -1,6 +1,7 @@
 import { ipcRenderer } from 'electron';
 import { openFile, fileSaved, newFile } from '../actions/app';
 import { showOpenFile, saveFile, saveFileAs } from '../actions/electron';
+import { toggleCode, togglePreview } from '../actions/toggle-views';
 
 
 export default function ElectronListener(getState, dispatch) {
@@ -29,6 +30,14 @@ export default function ElectronListener(getState, dispatch) {
 
   ipcRenderer.on('FILE_SAVED', (event, { filename, contents, originalFilename }) => {
     dispatch(fileSaved(filename, contents, originalFilename));
+  });
+
+  ipcRenderer.on('TOGGLE_CODE', () => {
+    dispatch(toggleCode());
+  });
+
+  ipcRenderer.on('TOGGLE_PREVIEW', () => {
+    dispatch(togglePreview());
   });
 
 }

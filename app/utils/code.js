@@ -124,6 +124,7 @@ export function createCodeBlock(codeMirror) {
       { line: line - 1, ch: 3 },
       { line: line - 1, ch: '```language'.length }
     );
+    return;
   }
   const selections = codeMirror.getSelections()
     .map(selection => `\`${selection}\``);

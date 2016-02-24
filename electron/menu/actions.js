@@ -13,3 +13,11 @@ export function onClickSave(item, browserWindow) {
 export function onClickSaveAs(item, browserWindow) {
   browserWindow.webContents.send('SAVE_FILE_AS');
 }
+
+export function onClickToggleCode(item, browserWindow) {
+  browserWindow.webContents.send('TOGGLE_CODE');
+}
+
+export function onClickTogglePreview(item, browserWindow) {
+  browserWindow.webContents.send('TOGGLE_PREVIEW');
+}
