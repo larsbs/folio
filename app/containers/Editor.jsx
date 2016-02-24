@@ -8,6 +8,7 @@ import {
   updateSelections
 } from '../actions/code';
 import { updateActiveFileContents } from '../actions/app';
+import codeEvents from '../utils/code-events';
 
 import styles from 'less/containers/editor';
 
@@ -27,6 +28,7 @@ const Editor = ({
         onChange={onChangeCode}
         onCursorActivity={onCursorActivity}
         cursorPosition={cursorPosition}
+        events={codeEvents}
         value={text} />
     );
   }

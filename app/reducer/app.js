@@ -1,4 +1,6 @@
 import * as AppActions from '../actions/app';
+import * as MenuBarActions from '../actions/menu-bar';
+import menuBar from './menu-bar';
 import FileState from '../utils/file-state';
 
 
@@ -11,17 +13,30 @@ const initialState = {
 };
 
 
+function isMenuBarAction(action) {
+  for (const key in MenuBarActions) {
+    if (MenuBarActions[key] === action.type) {
+      return true;
+    }
+  }
+  return false;
+}
+
+
 function getActiveFile(state) {
   return state.openedFiles[state.activeFileIndex];
 }
+
 
 function isOpened(openedFiles, newFile) {
   return !!openedFiles.find(file => file.path === newFile.path);
 }
 
+
 function findIndex(openedFiles, newFile) {
   return openedFiles.map(file => file.path).indexOf(newFile.path);
 }
+
 
 function updateActiveFile(openedFiles, activeFile, contents) {
   if ( ! activeFile) {
@@ -37,6 +52,7 @@ function updateActiveFile(openedFiles, activeFile, contents) {
     return file;
   });
 }
+
 
 function openFile(openedFiles, newFile, update) {
   if (isOpened(openedFiles, newFile)) {
@@ -65,6 +81,7 @@ function openFile(openedFiles, newFile, update) {
   };
 }
 
+
 function setFileAsSaved(openedFiles, savedFile, activeFile) {
   if (savedFile.path !== activeFile.path) {
     return setFileAsSavedAs(openedFiles, savedFile, activeFile);
@@ -79,6 +96,7 @@ function setFileAsSaved(openedFiles, savedFile, activeFile) {
     })
   };
 }
+
 
 function setFileAsSavedAs(openedFiles, savedFile, activeFile) {
   if ( ! activeFile.path && ! isOpened(openedFiles, savedFile)) {
@@ -103,6 +121,10 @@ function setFileAsSavedAs(openedFiles, savedFile, activeFile) {
 
 
 export default function app(state = initialState, action) {
+  if (isMenuBarAction(action)) {
+    return menuBar(state, action);
+  }
+
   switch (action.type) {
       case AppActions.TOGGLE_SIDEBAR:
         return { ...state,
