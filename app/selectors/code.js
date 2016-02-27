@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 
 
-const getCodeText = (state) => state.code.text;
+const getCodeText = (state) => state.app.openedFiles[state.app.activeFileIndex].contents;
 
 export const getNumberOfLines = createSelector(
   getCodeText,

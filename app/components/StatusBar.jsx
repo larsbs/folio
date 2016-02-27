@@ -11,7 +11,6 @@ function getPath(activeFile) {
 }
 
 function getStatus(activeFile) {
-  console.log(activeFile);
   if ( ! activeFile) {
     return '';
   }

@@ -1,173 +1,150 @@
-import CodeMirror from 'codemirror';
-
-
-function initCodeMirror(text, cursorPosition, selections) {
-  const codeMirror = CodeMirror();
-  codeMirror.setValue(text);
-  codeMirror.setCursor(cursorPosition);
-  if (selections && selections.length > 0) {
-    codeMirror.setSelections(selections);
-  }
-  return codeMirror;
+function mapSelectionsToPositions(selections, positions) {
+  return selections.map((selection, i) => {
+    return {
+      text: selection,
+      anchor: positions[i].anchor,
+      head: positions[i].head
+    };
+  });
 }
 
 
 function insertText(codeMirror, text, nextCursorPosition) {
   codeMirror.replaceSelection(text);
-  return {
-    text: codeMirror.getValue(),
-    cursorPosition: nextCursorPosition ? nextCursorPosition : codeMirror.getCursor()
-  };
+  codeMirror.setCursor(nextCursorPosition || codeMirror.getCursor());
 }
 
 
-function insertNewLine(codeMirror, text, nextCursorPosition) {
+function insertInNewLine(codeMirror, text) {
+  const { line, ch } = codeMirror.getCursor();
+  if (line === 0 && ch === 0) {
+    return insertText(codeMirror, text);
+  }
+  codeMirror.setCursor({ line: line + 1, ch: 0 });
+  insertText(codeMirror, `\n${text}`);
+}
+
+
+function setAs(as, codeMirror) {
+  const bold = as === 'bold';
   const cursor = codeMirror.getCursor();
-  const newLineCursor = Object.assign({}, cursor, {
-    line: cursor.line + 1,
-    ch: 0
+  if ( ! codeMirror.somethingSelected()) {
+    return insertText(codeMirror, bold ? '****' : '**', {
+      ...cursor,
+      ch: bold ? cursor.ch + 2  : cursor.ch + 1,
+    });
+  }
+  const selections = codeMirror.getSelections()
+    .map(selection => bold ? `**${selection}**` : `*${selection}*`);
+  codeMirror.replaceSelections(selections);
+}
+
+
+export function setAsBold(codeMirror) {
+  setAs('bold', codeMirror);
+}
+
+
+export function setAsItalic(codeMirror) {
+  setAs('italic', codeMirror);
+}
+
+
+export function createLink(codeMirror, image) {
+  const cursor = codeMirror.getCursor();
+  if ( ! codeMirror.somethingSelected()) {
+    return insertText(codeMirror, image ? '![]()' : '[]()', {
+      ...cursor,
+      ch: image ? cursor.ch + 2 : cursor.ch + 1
+    });
+  }
+  const selections = codeMirror.getSelections()
+    .map(selection => {
+      return image ? `![${selection}]()` : `[${selection}]()`;
+    });
+  codeMirror.replaceSelections(selections);
+}
+
+
+export function createImageLink(codeMirror) {
+  createLink(codeMirror, true);
+}
+
+
+export function createQuote(codeMirror) {
+  if ( ! codeMirror.somethingSelected()) {
+    return insertInNewLine(codeMirror, '> ');
+  }
+  const selections = mapSelectionsToPositions(
+    codeMirror.getSelections(),
+    codeMirror.listSelections()
+  ).map((selection, i, selections) => {
+    let selectionText = `> ${selection.text}\n`;
+    if (selection.anchor.ch !== 0) {
+      selectionText = `\n${selectionText}`;
+    }
+    if (i !== selections.length - 1) {
+      selectionText += '\n';
+    }
+    return selectionText;
   });
-  codeMirror.setCursor(newLineCursor);
-  return insertText(codeMirror, `\n${text}`, nextCursorPosition);
+  codeMirror.replaceSelections(selections);
+  codeMirror.setCursor({ line: codeMirror.lastLine(), ch: 0 });
 }
 
 
-function setAs(currentValue, cursorPosition, somethingSelected, selections, as) {
-  const codeMirror = initCodeMirror(currentValue, cursorPosition, selections);
+export function createList(codeMirror, type) {
+  const ul = type === 'ul';
+  if ( ! codeMirror.somethingSelected()) {
+    return insertInNewLine(codeMirror, ul ? '  * ' : '  1. ');
+  }
+  const selections = mapSelectionsToPositions(
+    codeMirror.getSelections(),
+    codeMirror.listSelections()
+  ).map((selection, i, selections) => {
+    let selectionText = ul ? `  * ${selection.text.trim()}` : `  ${i + 1}. ${selection.text.trim()}`;
+    if (selection.anchor.ch !== 0) {
+      selectionText = `\n${selectionText}`;
+    }
+    if (i === selections.length - 1) {
+      selectionText += '\n';
+    }
+    return selectionText;
+  });
+  codeMirror.replaceSelections(selections);
+  codeMirror.setCursor({ line: codeMirror.lastLine(), ch: 0 });
+}
 
-  if ( ! somethingSelected) {
-    return insertText(codeMirror, as === 'bold' ? '****' : '**', Object.assign({}, cursorPosition, {
-      ch: as === 'bold' ? cursorPosition.ch + 2 : cursorPosition.ch + 1
-    }));
+
+export function createCodeBlock(codeMirror) {
+  if ( ! codeMirror.somethingSelected()) {
+    insertInNewLine(codeMirror, '```language\n```');
+    const { line } = codeMirror.getCursor();
+    codeMirror.setSelection(
+      { line: line - 1, ch: 3 },
+      { line: line - 1, ch: '```language'.length }
+    );
+    return;
+  }
+  const selections = codeMirror.getSelections()
+    .map(selection => `\`${selection}\``);
+  codeMirror.replaceSelections(selections);
+}
+
+
+export function createHeader(codeMirror) {
+  if ( ! codeMirror.somethingSelected()) {
+    return insertInNewLine(codeMirror, '# ');
   }
 
-  codeMirror.replaceSelections(
-    codeMirror.getSelections()
-      .map(s => as === 'bold' ? `**${s}**` : `*${s}*`)
-  );
-  return {
-    text: codeMirror.getValue(),
-    cursorPosition: cursorPosition
-  };
+  const selections = codeMirror.getSelections()
+    .map(selection => `# ${selection}\n`);
+  codeMirror.replaceSelections(selections);
 }
 
 
-function createLink(text, cursorPosition, somethingSelected, selections, type) {
-  const codeMirror = initCodeMirror(text, cursorPosition, selections);
-
-  if ( ! somethingSelected) {
-    return insertText(codeMirror, type === 'image' ? '![]()' : '[]()', Object.assign({}, cursorPosition, {
-      ch: type === 'image' ? cursorPosition.ch + 2 : cursorPosition.ch + 1
-    }));
-  }
-
-  codeMirror.replaceSelections(
-    codeMirror.getSelections()
-      .map(s => type === 'image' ? `![${s}]()` : `[${s}]()`)
-  );
-  return {
-    text: codeMirror.getValue(),
-    cursorPosition: cursorPosition
-  };
+export function createTable(codeMirror) {
+  insertInNewLine(codeMirror, '| |');
+  insertInNewLine(codeMirror, '|-|');
+  insertInNewLine(codeMirror, '| |');
 }
-
-
-function createList(text, cursorPosition, somethingSelected, selections, type) {
-  const codeMirror = initCodeMirror(text, cursorPosition, selections);
-
-  if ( ! somethingSelected) {
-    const { line, ch } = codeMirror.getCursor();
-    if (line === 0 && ch === 0) {
-      return insertText(codeMirror, type === 'ul' ? '  * ' : '  1. ');
-    }
-    return insertNewLine(codeMirror, type === 'ul' ? '  * ' : '  1. ');
-  }
-}
-
-
-module.exports = {
-  setAsBold({ text, cursorPosition, somethingSelected, selections }) {
-    return setAs(text, cursorPosition, somethingSelected, selections, 'bold');
-  },
-  setAsItalic({ text, cursorPosition, somethingSelected, selections }) {
-    return setAs(text, cursorPosition, somethingSelected, selections, 'italic');
-  },
-  createLink({ text, cursorPosition, somethingSelected, selections }) {
-    return createLink(text, cursorPosition, somethingSelected, selections, 'normal');
-  },
-  createImageLink({ text, cursorPosition, somethingSelected, selections }) {
-    return createLink(text, cursorPosition, somethingSelected, selections, 'image');
-  },
-  createQuote({ text, cursorPosition, somethingSelected, selections }) {
-    const codeMirror = initCodeMirror(text, cursorPosition, selections);
-
-    if ( ! somethingSelected) {
-      const { line, ch } = codeMirror.getCursor();
-      if (line === 0 && ch === 0) {
-        return insertText(codeMirror, '> ');
-      }
-      return insertNewLine(codeMirror, '> ');
-    }
-
-    codeMirror.replaceSelections(
-      codeMirror.getSelections()
-        .map((s, i, a) => {
-          if (i === a.length - 1) {
-            return `\n> ${s}`;
-          }
-          return `\n> ${s}\n\n`;
-        })
-    );
-    return {
-      text: codeMirror.getValue(),
-      cursorPosition: cursorPosition
-    };
-  },
-  createUlList({ text, cursorPosition, somethingSelected, selections }) {
-    return createList(text, cursorPosition, somethingSelected, selections, 'ul');
-  },
-  createOlList({ text, cursorPosition, somethingSelected, selections }) {
-    return createList(text, cursorPosition, somethingSelected, selections, 'ol');
-  },
-  createCodeBlock({ text, cursorPosition, somethingSelected, selections }) {
-    const codeMirror = initCodeMirror(text, cursorPosition, selections);
-
-    if ( ! somethingSelected) {
-      const { line, ch } = codeMirror.getCursor();
-      if (line === 0 && ch === 0) {
-        return insertText(codeMirror, '```\n```', Object.assign({}, cursorPosition, {
-          ch: ch + 3
-        }));
-      }
-      return insertNewLine(codeMirror, '```\n```', Object.assign({}, cursorPosition, {
-        line: line + 1,
-        ch: ch + 3
-      }));
-    }
-
-    codeMirror.replaceSelections(
-      codeMirror.getSelections()
-        .map(s => `\`${s}\``)
-    );
-    return {
-      text: codeMirror.getValue(),
-      cursorPosition: cursorPosition
-    };
-  },
-  createHeader({ text, cursorPosition, somethingSelected, selections }) {
-    const codeMirror = initCodeMirror(text, cursorPosition, selections);
-
-    if ( ! somethingSelected) {
-      return insertText(codeMirror, '# ');
-    }
-
-    codeMirror.replaceSelections(
-      codeMirror.getSelections()
-        .map(s => `# ${s}\n`)
-    );
-    return {
-      text: codeMirror.getValue(),
-      cursorPosition: cursorPosition
-    };
-  },
-};

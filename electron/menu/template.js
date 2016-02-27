@@ -1,7 +1,11 @@
 import {
+  onClickNew,
   onClickOpen,
   onClickSave,
   onClickSaveAs,
+  onClickDetachPreview,
+  onClickToggleCode,
+  onClickTogglePreview
 } from './actions';
 
 
@@ -10,6 +14,7 @@ export default [{
   submenu: [{
     label: 'New File',
     accelerator: 'Ctrl+N',
+    click: onClickNew,
   }, {
     label: 'Open File...',
     accelerator: 'Ctrl+O',
@@ -73,6 +78,23 @@ export default [{
 }, {
   label: 'View',
   submenu: [{
+    label: 'Change Preview Theme'
+  }, {
+    label: 'Change Code Theme'
+  }, {
+    type: 'separator'
+  }, {
+    label: 'Detach Preview',
+    click: onClickDetachPreview,
+  }, {
+    label: 'Toggle Code',
+    click: onClickToggleCode,
+  }, {
+    label: 'Toggle Preview',
+    click: onClickTogglePreview,
+  }, {
+    type: 'separator'
+  }, {
     label: 'Reload',
     accelerator: 'Ctrl+R',
     click: (item, focusedWindow) => focusedWindow ? focusedWindow.reload() : false
@@ -84,5 +106,20 @@ export default [{
 }, {
   label: 'Help',
   submenu: [{
+    label: 'View License'
+  }, {
+    type: 'separator'
+  }, {
+    label: 'Report Issue'
+  }, {
+    label: 'Follow on Twitter'
+  }, {
+    type: 'separator'
+  }, {
+    label: 'Check for Updates...'
+  }, {
+    type: 'separator'
+  }, {
+    label: 'About Folio'
   }]
 }];

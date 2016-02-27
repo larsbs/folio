@@ -1,6 +1,44 @@
 import fs from 'fs';
-import { dialog } from 'electron';
-import { openFile } from './senders';
+import path from 'path';
+import { dialog, BrowserWindow } from 'electron';
+import { openFile, fileSaved, attachPreview } from './senders';
+
+
+const INDEX_PATH = path.resolve(__dirname, '../../app/index.html');
+const MAIN_URL = `file://${INDEX_PATH}`;
+const PREVIEW_URL = `${MAIN_URL}#preview`;
+
+
+export function displayMainWindow(options) {
+  let mainWindow = new BrowserWindow(options);
+
+  if (process.env.NODE_ENV === 'development') {
+    mainWindow.openDevTools();
+  }
+
+  mainWindow.loadURL(MAIN_URL);
+
+  return mainWindow;
+}
+
+
+export function displayPreviewWindow(contents, options) {
+  options = {
+    ...options,
+    frame: false
+  };
+  const previewWindow = new BrowserWindow(options);
+  previewWindow.loadURL(PREVIEW_URL);
+  previewWindow.webContents.on('dom-ready', () => {
+    previewWindow.webContents.send('UPDATE_PREVIEW_CONTENTS', { contents });
+  });
+  return previewWindow;
+}
+
+
+export function hidePreviewWindow(webContents) {
+  attachPreview(webContents);
+}
 
 
 export function showOpenFile(webContents) {
@@ -19,18 +57,18 @@ export function showOpenFile(webContents) {
 }
 
 
-export function saveFile(webContents, filename, contents) {
+export function saveFile(webContents, filename, contents, originalFilename) {
   contents = contents || '';
   fs.writeFile(filename, contents, err => {
     if (err) throw new Error(err);
-    openFile(webContents, filename, contents);
+    fileSaved(webContents, filename, contents, originalFilename || filename);
   });
 }
 
 
-export function saveFileAs(webContents, contents) {
+export function saveFileAs(webContents, contents, originalFilename) {
   dialog.showSaveDialog({}, filename => {
     if ( ! filename) return;
-    saveFile(webContents, filename, contents);
+    saveFile(webContents, filename, contents, originalFilename);
   });
 }

@@ -13,6 +13,10 @@ html, body, #root {
 
 .master-container {
   height: 100%;
+
+  &.only-preview {
+    overflow: auto;
+  }
 }
 
 .sidebar {
@@ -40,6 +44,3 @@ html, body, #root {
     height: 25px;
   }
 }
-
-
-@import './scrollbars.less';

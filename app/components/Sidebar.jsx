@@ -3,15 +3,24 @@ import React from 'react';
 import 'less/components/sidebar.less';
 
 
-const File = ({ file, fileIndex, isActive, onClick }) => (
-  <li className={isActive ? 'active' : ''} onClick={() => onClick(fileIndex)}>
-    <i className="fa fa-fw fa-times" />
-    <span className="filename">{file.name}</span>
+const File = ({ file, fileIndex, isActive, onClickFile, onClickRemove }) => (
+  <li className={isActive ? 'active' : ''} onClick={() => onClickFile(fileIndex)}>
+    <i className="fa fa-fw fa-times" onClick={event => {
+      event.stopPropagation();
+      onClickRemove(fileIndex);
+    }} />
+    <span className="filename">{file.name}{file.saved || ! file.path ? '' : ' *'}</span>
     <span className="filepath">{file.path}</span>
   </li>
 );
 
-const Sidebar = ({ openedFiles, activeFileIndex, onClickFile }) => (
+const Sidebar = ({
+  openedFiles,
+  activeFileIndex,
+  onClickFile,
+  onClickRemove,
+  onClickOpenFile,
+}) => (
   <div className="sidebar">
     <div className="title">
       Open Files
@@ -23,13 +32,14 @@ const Sidebar = ({ openedFiles, activeFileIndex, onClickFile }) => (
             file={file}
             fileIndex={i}
             isActive={i === activeFileIndex}
-            onClick={onClickFile}
+            onClickFile={onClickFile}
+            onClickRemove={onClickRemove}
             key={i} />
         ))}
       </ul>
     </section>
     <section className="buttons">
-      <button>Open File</button>
+      <button onClick={onClickOpenFile}>Open File</button>
     </section>
   </div>
 );

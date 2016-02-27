@@ -36,6 +36,7 @@ const config = {
         path.join(__dirname, 'app'),
         path.join(__dirname, 'vendor'),
       ],
+      exclude: /node_modules/,
       loaders: [
         'eslint'
       ]
@@ -46,6 +47,7 @@ const config = {
         path.join(__dirname, 'app'),
         path.join(__dirname, 'vendor'),
       ],
+      exclude: /node_modules/,
       loaders: [
         'react-hot',
         'babel'

@@ -6,9 +6,16 @@ import { toggleCode, togglePreview } from '../actions/toggle-views';
 import styles from 'less/containers/toggle-views';
 
 
-const ToggleViews = ({ showCode, showPreview, onClickCode, onClickPreview }) => {
+const ToggleViews = ({
+  showCode,
+  showPreview,
+  isPreviewDetached,
+  onClickCode,
+  onClickPreview
+}) => {
   const codeClass = showCode ? styles.active : styles.button;
-  const previewClass = showPreview ? styles.active : styles.button;
+  let previewClass = showPreview ? styles.active : styles.button;
+  previewClass = isPreviewDetached ? styles.detached : previewClass;
 
   return (
     <div className={styles.toggleViews + ' toggle-views'}>
@@ -21,7 +28,8 @@ const ToggleViews = ({ showCode, showPreview, onClickCode, onClickPreview }) => 
 const mapStateToProps = (state) => {
   return {
     showCode: state.toggleViews.showCode,
-    showPreview: state.toggleViews.showPreview
+    showPreview: state.toggleViews.showPreview,
+    isPreviewDetached: state.app.isPreviewDetached
   };
 };
 

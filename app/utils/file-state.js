@@ -4,7 +4,9 @@ export default class FileState {
     this.name = filename ? filename.replace(/^.*[\\\/]/, '') : 'Untitled';
     this.path = filename;
     this._contents = contents ? contents : '';
-    this.saved = true;
+    this._saved = filename ? true : false;
+    this._lastSavedContents = this._contents;
+    this.id = Date.now() + Math.floor(Math.random() * 1000000);
   }
 
   set contents(contents) {
@@ -16,6 +18,20 @@ export default class FileState {
 
   get contents() {
     return this._contents;
+  }
+
+  set saved(saved) {
+    this._lastSavedContents = this._contents;
+    this._saved = saved;
+  }
+
+  get saved() {
+    return this._saved;
+  }
+
+  restoreLastSavedContents() {
+    this._contents = this._lastSavedContents;
+    this._saved = true;
   }
 
 }
