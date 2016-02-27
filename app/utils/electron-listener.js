@@ -33,7 +33,8 @@ export default function ElectronListener(getState, dispatch) {
   });
 
   ipcRenderer.on('DETACH_PREVIEW', () => {
-    dispatch(detachPreview());
+    const previewContents = getState().app.openedFiles[getState().app.activeFileIndex].contents;
+    dispatch(detachPreview(previewContents));
   });
 
   ipcRenderer.on('ATTACH_PREVIEW', () => {

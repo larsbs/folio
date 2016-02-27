@@ -22,13 +22,16 @@ export function displayMainWindow(options) {
 }
 
 
-export function displayPreviewWindow(options) {
+export function displayPreviewWindow(contents, options) {
   options = {
     ...options,
     frame: false
   };
-  let previewWindow = new BrowserWindow(options);
+  const previewWindow = new BrowserWindow(options);
   previewWindow.loadURL(PREVIEW_URL);
+  previewWindow.webContents.on('dom-ready', () => {
+    previewWindow.webContents.send('UPDATE_PREVIEW_CONTENTS', { contents });
+  });
   return previewWindow;
 }
 

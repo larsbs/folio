@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { remote } from 'electron';
 
 import Header from '../components/Header';
 import Editor from './Editor';
@@ -29,7 +28,7 @@ const App = ({
 }) => {
   if (isPreviewWindow) {
     return (
-      <div className="master-container">
+      <div className="master-container only-preview">
         <Preview code={previewContents} />
       </div>
     );

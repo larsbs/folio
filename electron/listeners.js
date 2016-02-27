@@ -28,15 +28,18 @@ export default function initListeners() {
     saveFileAs(event.sender, contents, originalFilename);
   });
 
-  ipcMain.on('DETACH_PREVIEW', event => {
-    previewWindow = displayPreviewWindow();
+  ipcMain.on('DETACH_PREVIEW', (event, { contents }) => {
+    previewWindow = displayPreviewWindow(contents);
     previewWindow.on('close', () => {
       hidePreviewWindow(event.sender);
+      previewWindow = null;
     });
   });
 
   ipcMain.on('UPDATE_ACTIVE_FILE_CONTENTS', (event, { contents }) => {
-    previewWindow.webContents.send('UPDATE_PREVIEW_CONTENTS', { contents });
+    if (previewWindow) {
+      previewWindow.webContents.send('UPDATE_PREVIEW_CONTENTS', { contents });
+    }
   });
 
 }

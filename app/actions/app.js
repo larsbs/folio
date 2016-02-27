@@ -82,10 +82,13 @@ export function removeOpenedFile(fileIndex) {
 
 export const DETACH_PREVIEW = 'DETACH_PREVIEW';
 
-export function detachPreview() {
+export function detachPreview(contents) {
   return {
     type: DETACH_PREVIEW,
-    electron: true
+    electron: true,
+    payload: {
+      contents
+    }
   };
 }
 

@@ -6,7 +6,7 @@ import windowStateKeeper from 'electron-window-state';
 
 import initListeners from './listeners';
 import menuTemplate from './menu/template';
-import { displayMainWindow, displayPreviewWindow } from './operations';
+import { displayMainWindow } from './operations';
 
 
 app.on('window-all-closed', () => {
